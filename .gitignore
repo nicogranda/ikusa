@@ -1,0 +1,12 @@
+.DS_Store
+__MACOSX/
+.env
+.env.*
+!.env.example
+**/error_log
+**/*.log
+**/*.bak
+/public_html/admin/uploads/
+/public_html/admin/E-mail/uploads/
+/database/ikusa.sql
+/public_html/admin/config/connection.php

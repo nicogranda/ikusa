@@ -1,0 +1,159 @@
+<?php
+// app/views/admin/irs/5472/pdf.php
+// Variables disponibles: $filing, $form (fila de form_5472)
+
+require_once '/home/ot2ryobi838h/vendor/autoload.php';
+use setasign\Fpdi\Tcpdf\Fpdi;
+
+function fmt($val) {
+    $val = (float)($val ?? 0);
+    return $val != 0 ? number_format($val, 2) : '';
+}
+
+$taxYear = $filing['tax_year'];
+$isCorrected = (bool)($filing['is_corrected'] ?? false);
+
+$cityStateZip = trim($form['corp_city'] . ', ' . $form['corp_state'] . ' ' . $form['corp_zip']);
+
+$pdf = new Fpdi();
+$pdf->setCreator(PDF_CREATOR);
+$pdf->setAuthor('Ikusa LLC');
+$pdf->setTitle('IRS Form 5472 - ' . $taxYear . ' v' . $filing['version']);
+$pdf->setSubject('irs');
+$pdf->setKeywords('TCPDF, PDF, 5472, irs');
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+
+$templatePath = '/home/ot2ryobi838h/app/views/admin/irs/5472/5472.pdf';
+$pageCount = $pdf->setSourceFile($templatePath);
+
+$pdf->SetMargins(0, 0, 0);
+$pdf->SetAutoPageBreak(false, 0);
+
+for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+    $pdf->AddPage('P', 'LETTER');
+    $templateId = $pdf->importPage($pageNo);
+    $size = $pdf->getTemplateSize($templateId);
+    $pdf->useTemplate($templateId, 0, 0, $size['width'], $size['height']);
+
+    if ($pageNo === 1) {
+        $pdf->SetFont('Helvetica', '', 9);
+
+        if ($isCorrected) {
+            $pdf->SetFont('Helvetica', 'B', 9);
+            $pdf->SetXY(180, 10); $pdf->Write(0, 'CORRECTED');
+            $pdf->SetFont('Helvetica', '', 9);
+        }
+
+        $pdf->SetXY(100, 29); $pdf->Write(0, 'January');
+        $pdf->SetXY(120, 29); $pdf->Write(0, $taxYear);
+        $pdf->SetXY(143, 29); $pdf->Write(0, 'December');
+        $pdf->SetXY(163, 29); $pdf->Write(0, $taxYear);
+
+        $pdf->SetXY(15, 45);    $pdf->Write(0, $form['corp_name']);
+        $pdf->SetXY(170, 45);   $pdf->Write(0, $form['ein']);
+        $pdf->SetXY(15, 54);    $pdf->Write(0, $form['corp_address']);
+        $pdf->SetXY(15, 63);    $pdf->Write(0, $cityStateZip);
+        $pdf->SetXY(55, 67.5);  $pdf->Write(0, $form['business_activity']);
+        $pdf->SetXY(180, 67.5); $pdf->Write(0, $form['activity_code']);
+
+        $pdf->SetXY(168, 62); $pdf->Write(0, fmt($form['total_assets']));
+
+        $grossPayments = fmt($form['gross_payments_form'] ?? $form['distribution_amount'] ?? 0);
+        $pdf->SetXY(20, 80);  $pdf->Write(0, $grossPayments);
+        $pdf->SetXY(100, 80); $pdf->Write(0, '1');
+        $pdf->SetXY(155, 80); $pdf->Write(0, $grossPayments);
+
+        $pdf->SetXY(168, 90); $pdf->Write(0, $form['incorporation_country'] ?? 'US');
+        $pdf->SetXY(15, 104); $pdf->Write(0, date('m/d/Y', strtotime($form['incorporation_date'])));
+        $pdf->SetXY(150, 105); $pdf->Write(0, $form['principal_countries_business'] ?? 'United States, Spain');
+
+        $pdf->SetFont('dejavusans', '', 16);
+        if ($form['foreign_owned_50pct'])   { $pdf->SetXY(197, 113); $pdf->Write(0, '✓'); }
+        if ($form['is_disregarded_entity']) { $pdf->SetXY(197, 121); $pdf->Write(0, '✓'); }
+
+        $pdf->SetFont('Helvetica', '', 8);
+        $pdf->SetXY(15, 143);
+        $pdf->Write(0, $form['shareholder_full_address_line']);
+
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetXY(70, 155);  $pdf->Write(0, $form['shareholder_reference_id']);
+        $pdf->SetXY(148, 155); $pdf->Write(0, $form['shareholder_ftin']);
+
+        $pdf->SetXY(15, 167);  $pdf->Write(0, $form['shareholder_country']);
+        $pdf->SetXY(70, 167);  $pdf->Write(0, $form['shareholder_citizenship_country'] ?? $form['shareholder_country']);
+        $pdf->SetXY(148, 167); $pdf->Write(0, $form['shareholder_tax_country']);
+    }
+
+    if ($pageNo === 2) {
+        $pdf->SetFont('Helvetica', '', 9);
+
+        // Encabezado Part III — "Is the related party a foreign person?" (checkbox estimado, verificar visualmente)
+        $pdf->SetFont('dejavusans', '', 12);
+        $pdf->SetXY(104.1, 21.9); $pdf->Write(0, '✓');
+        $pdf->SetFont('Helvetica', '', 9);
+
+        $pdf->SetXY(15, 28);  $pdf->Write(0, $form['shareholder_name']);
+        $pdf->SetXY(15, 37);  $pdf->Write(0, $form['shareholder_reference_id']);
+        $pdf->SetXY(80, 37);  $pdf->Write(0, $form['shareholder_ftin']);
+        $pdf->SetXY(55, 42.5);  $pdf->Write(0, $form['related_party_activity']);
+        $pdf->SetXY(180, 42.5); $pdf->Write(0, $form['activity_code']);
+
+        // 8e Relationship — "Related to 25% foreign shareholder" + "25% foreign shareholder" (coordenadas estimadas)
+        $pdf->SetFont('dejavusans', '', 12);
+        $pdf->SetXY(116.8, 47.3); $pdf->Write(0, '✓');
+        $pdf->SetXY(167.6, 47.3); $pdf->Write(0, '✓');
+        $pdf->SetFont('Helvetica', '', 9);
+
+        $pdf->SetXY(15, 57);  $pdf->Write(0, $form['shareholder_country']);
+        $pdf->SetXY(115, 57); $pdf->Write(0, $form['shareholder_tax_country']);
+
+        if (!empty($form['distribution_amount'])) {
+            $pdf->SetFont('dejavusans', '', 12);
+            $pdf->SetXY(192, 233); $pdf->Write(0, '✓');
+        }
+    }
+}
+
+if (!empty($form['distribution_amount'])) {
+    $pdf->AddPage('P', 'LETTER');
+    $pdf->SetFont('Helvetica', 'B', 11);
+    $pdf->SetXY(15, 20);
+    $pdf->Write(0, 'Form 5472 — Part V Statement');
+
+    $pdf->SetFont('Helvetica', '', 9);
+    $pdf->SetXY(15, 30);
+    $pdf->Write(0, 'Reporting Corporation: ' . $form['corp_name']);
+    $pdf->SetXY(15, 36);
+    $pdf->Write(0, 'EIN: ' . $form['ein']);
+    $pdf->SetXY(15, 42);
+    $pdf->Write(0, 'Tax Year: January 1, ' . $taxYear . ' – December 31, ' . $taxYear);
+
+    $pdf->SetXY(15, 55);
+    $pdf->SetFont('Helvetica', 'B', 9);
+    $pdf->Write(0, 'Reportable Transactions (Part V — Foreign-Owned U.S. Disregarded Entity)');
+
+    $pdf->SetFont('Helvetica', '', 9);
+    $pdf->SetXY(15, 65);
+    $pdf->MultiCell(180, 6,
+        'During tax year ' . $taxYear . ', ' . $form['corp_name'] . ', a foreign-owned U.S. disregarded entity treated as a ' .
+        'corporation for purposes of section 6038A, engaged in the following reportable transactions ' .
+        'with its sole foreign owner, ' . $form['shareholder_name'] . ' (' . ($form['shareholder_citizenship_country'] ?? $form['shareholder_country']) . ' citizen, ' .
+        'FTIN: ' . $form['shareholder_ftin'] . "):\n\n" .
+        '1. Gross revenues received from third-party clients for marketing and web development ' .
+        'services: $' . fmt($form['third_party_gross_receipts']) . "\n\n" .
+        '2. Distributions made to foreign owner ' . $form['shareholder_name'] . ': $' . fmt($form['distribution_amount']) . "\n\n" .
+        'All transactions were conducted at arm\'s length and in the ordinary course of business.' .
+        ($form['shareholder_reference_id'] !== '' ? "\n\nReference ID used: " . $form['shareholder_reference_id'] . ' (alphanumeric format, no special characters).' : ''),
+        0, 'L'
+    );
+}
+
+$mode = $mode ?? ($_GET['mode'] ?? 'view');
+if ($mode === 'download') {
+    $pdf->Output('Form5472_' . $taxYear . '_v' . $filing['version'] . '.pdf', 'D');
+} elseif ($mode === 'save' && isset($savePath)) {
+    $pdf->Output($savePath, 'F');
+} else {
+    $pdf->Output('Form5472_' . $taxYear . '_v' . $filing['version'] . '.pdf', 'I');
+}

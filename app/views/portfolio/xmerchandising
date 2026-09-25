@@ -1,0 +1,101 @@
+<style>
+    .grid-gallery {
+        display: grid;
+        gap: 1rem;
+        grid-auto-flow: dense;
+        width: 80%;
+        margin: 0 auto;
+        padding: 30px 0 0 0;
+    }
+
+    @media (min-width: 320px) {
+        .grid-gallery {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    @media (min-width: 768px) {
+        .grid-gallery {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .grid-gallery {
+            grid-template-columns: repeat(12, 1fr);
+        }
+    }
+
+    .grid-gallery__item[data-aspect-ratio="square"] {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .grid-gallery__item[data-aspect-ratio="portrait"] {
+        grid-column: span 2;
+        grid-row: span 3;
+    }
+
+    .grid-gallery__item[data-aspect-ratio="medium-portrait"] {
+        grid-column: span 3;
+        grid-row: span 3;
+    }
+
+    .grid-gallery__item[data-aspect-ratio="wide-banner"] {
+        grid-column: span 6;
+        grid-row: span 2;
+    }
+
+    .grid-gallery__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .grid-gallery__item:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+</style>
+
+
+<div class="grid-gallery">
+    <?php 
+ $dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/img/portfolio/merchandising";
+$direc = @opendir($dir) or die("permiso denegado");
+while ($file = readdir($direc)) {
+    if ($file != "." && $file != ".." && $file != ".DS_Store") {
+        $filename = pathinfo($file, PATHINFO_FILENAME);
+        $absoluteRoute = $_SERVER['DOCUMENT_ROOT'] . "/assets/img/portfolio/merchandising/" . $file;
+        $srcRoute = "/assets/img/portfolio/merchandising/" . $file;
+
+        list($width, $height) = getimagesize($absoluteRoute);
+
+        $aspect_ratio = '';
+        if ($width >= 500 && $width <= 700) {
+            $aspect_ratio = "medium-wide";
+        } elseif ($width / $height >= 5) {
+            $aspect_ratio = "widescreen";
+        } elseif ($width / $height >= 2.5) {
+            $aspect_ratio = "wide-landscape";
+        } elseif ($width > $height) {
+            $aspect_ratio = "landscape";
+        } elseif ($width < $height) {
+            $aspect_ratio = "portrait";
+        } else {
+            $aspect_ratio = "square";
+        }
+
+        echo '<a class="grid-gallery__item" href="#" data-aspect-ratio="' . $aspect_ratio . '">';
+        echo "<img src='" . $srcRoute . "' alt='" . $filename . "' title='" . $filename . "' class='grid-gallery__image' />";
+        echo '</a>';
+    }
+}
+closedir($direc);
+    ?>
+</div>
+
+<h1 class='principal'>Diseño Gráfico</h1>
+<p class="introduces">
+Nos escnargamos del merchandising personalizado, ofreciendo una amplia variedad de productos promocionales para fortalecer la identidad de marca de sus clientes. Con opciones de personalización en artículos como ropa, accesorios, papelería y objetos de uso diario, IKUSA garantiza calidad y diseño atractivo en cada pieza, enfocándose en soluciones que realzan la visibilidad de marca en eventos, puntos de venta y campañas publicitarias.
+</p>

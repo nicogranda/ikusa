@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Domains\Services;
+
+class ServicesController
+{
+    private string $lang;
+    private string $viewsPath;
+    private Service $serviceModel;
+
+    public function __construct()
+    {
+        $this->lang         = $_GET['lang'] ?? 'es';
+        $this->viewsPath    = __DIR__ . '/../../../app/views/services/';
+        $this->serviceModel = new Service($this->lang);
+    }
+
+    public function index(): void
+    {
+        $services = $this->serviceModel->getAll();
+        $lang     = $this->lang;
+        include $this->viewsPath . 'index.php';
+    }
+
+    public function show(string $slug): void
+    {
+        $map = [
+            'diseno-grafico'    => 'diseno_grafico',
+            'desarrollo-web'    => 'desarrollo_web',
+            'marketing-digital' => 'marketing_digital',
+        ];
+
+        $file = $map[$slug] ?? null;
+
+        if (!$file || !file_exists($this->viewsPath . $file . '.php')) {
+            $this->notFound();
+            return;
+        }
+
+        $service         = $this->serviceModel->getBySlug($slug);
+        $relatedServices = $this->serviceModel->getRelated($slug);
+        $lang            = $this->lang;
+
+        include $this->viewsPath . $file . '.php';
+    }
+
+    private function notFound(): void
+    {
+        http_response_code(404);
+        include __DIR__ . '/../../../app/views/404.php';
+    }
+}

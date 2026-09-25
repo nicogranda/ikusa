@@ -1,0 +1,209 @@
+/* ==========================================================
+   FORMULARIO RFQ
+========================================================== */
+
+.container-form{
+    width:100%;
+    max-width:700px;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding:20px;
+    box-sizing:border-box;
+    overflow-x:hidden;
+}
+
+.container-form *,
+.container-form *::before,
+.container-form *::after{
+    box-sizing:border-box;
+}
+
+.container-form article{
+    width:100%;
+    margin-bottom:30px;
+}
+
+.container-form h1{
+    margin-bottom:30px;
+    text-align:center;
+}
+
+.container-form h2{
+    margin-bottom:15px;
+}
+
+.client-data,
+.container-form input[type="text"],
+.container-form input[type="email"],
+.container-form input[type="number"],
+.container-form input[type="url"],
+.container-form input[type="tel"],
+.container-form textarea,
+.container-form select{
+    width:100%;
+    display:block;
+}
+
+.category{
+    width:100%;
+    margin-bottom:15px;
+}
+
+.category > label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    width:100%;
+}
+
+.category-checkbox{
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+    margin:0;
+}
+
+.category-name{
+    flex:1;
+    min-width:0;
+}
+
+.products{
+    width:100%;
+    margin-top:10px;
+}
+
+.line{
+    width:100%;
+    margin-bottom:10px;
+}
+
+.product-checkbox{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+}
+
+.product-selection{
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+    margin:0;
+}
+
+.product-name{
+    flex:1;
+    min-width:0;
+}
+
+.domain-request{
+    display:none;
+    width:100%;
+    margin-top:25px;
+}
+
+.domain-request .client-data{
+    width:100%;
+}
+
+.button-send{
+    display:block;
+    width:320px;
+    max-width:100%;
+    margin:30px auto 0;
+}
+
+.captcha-container{
+    width:100%;
+    margin:20px 0;
+}
+
+.table-container-request{
+    width:100%;
+}
+
+.table-header-request,
+.table-row{
+    width:98%;
+}
+
+/* ==========================================================
+   BOTONES SI / NO
+========================================================== */
+
+.select-all{
+    border:none;
+    padding:8px 18px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    background:var(--color-primary);
+    color:#fff;
+}
+
+.select-all:hover{
+    opacity:.85;
+    transform:translateY(-1px);
+}
+
+.select-all[data-value="yes"]{
+    background:var(--color-primary);
+}
+
+.select-all[data-value="no"]{
+    background:transparent;
+    color:var(--color-primary);
+    border:2px solid var(--color-primary);
+}
+
+.select-all[data-value="no"]:hover{
+    background:var(--color-primary);
+    color:#fff;
+}
+
+.table-header-request .select-all{
+    min-width:55px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width:992px){
+
+
+        .container-form{
+    
+        padding:0px;
+     
+    }
+    .select-all{
+        border:none;
+        padding:8px 10px;
+        border-radius:6px;
+        font-size:14px;
+        font-weight:600;
+        cursor:pointer;
+        transition:.3s;
+        background:var(--color-primary);
+        color:#fff;
+    }
+    
+    .select-all:hover{
+        opacity:.85;
+        transform:translateY(-1px);
+    }
+    
+    .table-header-request {
+     padding: 0 5px;   
+    }
+
+}
