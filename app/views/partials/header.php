@@ -61,7 +61,7 @@ $headerClass = in_array($page, $darkHeaderPages)
             <div class="bar"></div>
         </div>
     <div class="logo">
-        <a href="/<?= htmlspecialchars($lang ?? 'es') ?>"><?php include $_SERVER['DOCUMENT_ROOT'] . '/assets/img/ikusa_inline.svg'; ?></a>
+        <a href="/<?= htmlspecialchars($lang ?? 'es') ?>"><?php include dirname(__DIR__, 3) . '/public_html/assets/img/ikusa_inline.svg'; ?></a>
     </div>
     </div>
 
