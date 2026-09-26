@@ -25,7 +25,14 @@ class AuthsController
 
     public function auth(): void
     {
+        $host = parse_url('http://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'), PHP_URL_HOST);
+        $isLocal = in_array($host, ['localhost', '127.0.0.1'], true);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$isLocal) {
+                http_response_code(405);
+                return;
+            }
             $this->passwordLogin();
             return;
         }
@@ -45,9 +52,7 @@ class AuthsController
             return;
         }
 
-        $host = parse_url('http://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'), PHP_URL_HOST);
-        $googleLoginEnabled = $this->googleClient !== null
-            && !in_array($host, ['localhost', '127.0.0.1'], true);
+        $googleLoginEnabled = $this->googleClient !== null && !$isLocal;
         include __DIR__ . '/../../views/admin/auth/login.php';
     }
 
