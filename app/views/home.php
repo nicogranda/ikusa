@@ -8,7 +8,7 @@ require __DIR__ . '/schemas/website.schema.php';
 ?>
 <div class='desk'>
     <div class='cubo'>
-        <?php include 'components/cube/index.html'; ?>
+        <?php include __DIR__ . '/components/cube/index.php'; ?>
     </div>
     <article class="hero-banner-text">
         <h1 class='hero-banner-title'>Agencia de Diseño Gráfico,<br>Desarrollo Web<br> y Marketing Digital</h1>
@@ -32,7 +32,7 @@ require __DIR__ . '/schemas/website.schema.php';
 <?php include  __DIR__ . '/components/benefits/benefits.php';?>
 
 
-<img src='assets/img/heros/desarrollo_web.jpg' style='width:100%;' alt='Diseño Web Profesional' title='Diseño Web Profesional'>
+<img src="<?= htmlspecialchars(asset_url('img/heros/desarrollo_web.jpg'), ENT_QUOTES, 'UTF-8') ?>" style='width:100%;' alt='Diseño Web Profesional' title='Diseño Web Profesional'>
 <?php include  __DIR__ . '/components/fases/fases.php';?>
 
 <?php
