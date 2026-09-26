@@ -96,7 +96,7 @@ $headerClass = in_array($page, $darkHeaderPages)
 <!-- CHATBOT -->
 <div id="chatbot-widget">
     <div id="chatbot-toggle">
-        <img src="/assets/img/chat-bot.svg" alt="Chat Bot">
+        <img src="<?= htmlspecialchars(asset_url('img/chat-bot.svg'), ENT_QUOTES, 'UTF-8') ?>" alt="Chat Bot">
     </div>
     <div id="chatbot-box">
         <div class="chat-header">Soporte</div>
