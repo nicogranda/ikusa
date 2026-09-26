@@ -309,6 +309,11 @@ switch ($page) {
         break;          
         
     case 'admin':
+        $isGoogleJsonRequest = $_SERVER['REQUEST_METHOD'] === 'POST'
+            && str_starts_with(strtolower($_SERVER['CONTENT_TYPE'] ?? ''), 'application/json');
+        if ($isGoogleJsonRequest) {
+            ob_clean();
+        }
         require_once __DIR__ . '/../app/controllers/admin/AuthsController.php';
         $controller = new AuthsController();
         $action = $_GET['action'] ?? 'auth';
@@ -410,7 +415,7 @@ switch ($page) {
     
     }
 
-      if( $page == "chat") { }
+      if ($page === "chat" || !empty($isGoogleJsonRequest)) { }
       
     else {
      
