@@ -61,35 +61,35 @@ $headerClass = in_array($page, $darkHeaderPages)
             <div class="bar"></div>
         </div>
     <div class="logo">
-        <a href="/<?= htmlspecialchars($lang ?? 'es') ?>"><?php include dirname(__DIR__, 3) . '/public_html/assets/img/ikusa_inline.svg'; ?></a>
+        <a href="<?= htmlspecialchars(route_url($lang ?? 'es'), ENT_QUOTES, 'UTF-8') ?>"><?php include dirname(__DIR__, 3) . '/public_html/assets/img/ikusa_inline.svg'; ?></a>
     </div>
     </div>
 
     <div class="menu" id="menu">
-        <a href="/<?= htmlspecialchars($lang ?? 'es') ?>">Home</a>
+        <a href="<?= htmlspecialchars(route_url($lang ?? 'es'), ENT_QUOTES, 'UTF-8') ?>">Home</a>
 
         <a href="#" onclick="toggleServices()">Qué hacemos?</a>
         <div id="services-menu" class="dropdown">
-            <a href="/es/diseno-grafico">Diseño Gráfico</a>
-            <a href="/es/desarrollo-web">Diseño y Desarrollo Web</a>
-            <a href="/es/marketing-digital">Marketing Digital</a>
+            <a href="<?= htmlspecialchars(route_url('es/diseno-grafico'), ENT_QUOTES, 'UTF-8') ?>">Diseño Gráfico</a>
+            <a href="<?= htmlspecialchars(route_url('es/desarrollo-web'), ENT_QUOTES, 'UTF-8') ?>">Diseño y Desarrollo Web</a>
+            <a href="<?= htmlspecialchars(route_url('es/marketing-digital'), ENT_QUOTES, 'UTF-8') ?>">Marketing Digital</a>
         </div>
 
         <a href="#" onclick="togglePortfolio()">Portafolio</a>
         <div id="portfolio-menu" class="dropdown">
-            <a href="/es/logos">Logos</a>
-            <a href="/es/tarjetas-de-visitas">Cards</a>
-            <a href="/es/merchandising">Merchandising</a>
+            <a href="<?= htmlspecialchars(route_url('es/logos'), ENT_QUOTES, 'UTF-8') ?>">Logos</a>
+            <a href="<?= htmlspecialchars(route_url('es/tarjetas-de-visitas'), ENT_QUOTES, 'UTF-8') ?>">Cards</a>
+            <a href="<?= htmlspecialchars(route_url('es/merchandising'), ENT_QUOTES, 'UTF-8') ?>">Merchandising</a>
         </div>
         
-        <a href="/es/proyectos">Proyectos</a>
+        <a href="<?= htmlspecialchars(route_url('es/proyectos'), ENT_QUOTES, 'UTF-8') ?>">Proyectos</a>
         
-        <a href="/es/nosotros">Quiénes somos?</a>
+        <a href="<?= htmlspecialchars(route_url('es/nosotros'), ENT_QUOTES, 'UTF-8') ?>">Quiénes somos?</a>
 
     </div>
 
     <!--<div class="contact-us">-->
-    <!--    <a href="/es/contacto">Contáctanos</a>-->
+    <!--    <a href="<?= htmlspecialchars(route_url('es/contacto'), ENT_QUOTES, 'UTF-8') ?>">Contáctanos</a>-->
     <!--</div>-->
 </header>
 
