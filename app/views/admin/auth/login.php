@@ -1,8 +1,8 @@
 <div class="container-form">
 
-<form method="POST" action="index.php?page=admin&action=auth">
+<form method="POST" action="<?= htmlspecialchars(route_url('admin'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <img src="../../../../assets/img/logo.png" alt="Ikusa" class="logo">
+    <img src="<?= htmlspecialchars(asset_url('img/logo.png'), ENT_QUOTES, 'UTF-8') ?>" alt="Ikusa" class="logo">
 
     <?php if (isset($_SESSION['error'])): ?>
         <p class="error-message">
@@ -42,9 +42,11 @@
     </div>
 
 
+    <?php if ($googleLoginEnabled): ?>
     <div class="links google-login">
         <?php include __DIR__ . '/../../components/login_google.php'; ?>
     </div>
+    <?php endif; ?>
 
 </form>
 
