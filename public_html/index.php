@@ -145,6 +145,16 @@ error_log("PAGE VALUE: " . $page);
 
 
 switch ($page) {
+
+    case 'home':
+        if ($newSystemTranslation
+            && (trim((string) ($newSystemTranslation['content'] ?? '')) !== ''
+                || trim((string) ($newSystemTranslation['components'] ?? '')) !== '')) {
+            $pageController->render($lang, $page);
+        } else {
+            include __DIR__ . '/../app/views/home.php';
+        }
+        break;
     
   
         
@@ -369,7 +379,11 @@ switch ($page) {
 
             if ($newSystemTranslation) {
                 $pageController->render($lang, $page);
-                break;
+            } elseif ($isLanding) {
+                include $landingFile;
+            } else {
+                http_response_code(404);
+                include __DIR__ . '/../app/views/404.php';
             }
 
             break;
