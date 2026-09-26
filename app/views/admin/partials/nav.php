@@ -68,6 +68,23 @@
         filter: none;
     }
 
+    #ikusaMenu .main-menu-link {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        font-weight: 600;
+        font-size: 14px;
+        background: #f8f8f8;
+        color: var(--ikusa-dark);
+        text-decoration: none;
+    }
+
+    #ikusaMenu .main-menu-link:hover,
+    #ikusaMenu .main-menu-link:focus-visible {
+        background: #fff0eb;
+        color: var(--ikusa-accent);
+    }
+
     #ikusaMenu .list-group-item {
         border: none;
         padding: 10px 20px;
@@ -148,13 +165,19 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href="index.php?page=products&action=index">Products</a></li>
                         <li class="list-group-item"><a href="index.php?page=supplies&action=index">Supplies</a></li>
-                        <li class="list-group-item"><a href="index.php?page=providers&action=index">Providers</a></li>
-                        <li class="list-group-item"><a href="index.php?page=clients&action=index">Clients</a></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Provider -->
+            <!-- Providers and clients -->
+            <div class="accordion-item">
+                <a class="main-menu-link" href="index.php?page=providers&action=index"><i class="bi bi-building me-2"></i> Providers</a>
+            </div>
+            <div class="accordion-item">
+                <a class="main-menu-link" href="index.php?page=clients&action=index"><i class="bi bi-people me-2"></i> Clients</a>
+            </div>
+
+            <!-- Buy -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProvider">
@@ -169,7 +192,7 @@
                 </div>
             </div>
 
-            <!-- Clients -->
+            <!-- Sales -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClients">
