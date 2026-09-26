@@ -309,7 +309,7 @@ switch ($page) {
         break;          
         
     case 'admin':
-        require_once "../app/controllers/admin/AuthsController.php";
+        require_once __DIR__ . '/../app/controllers/admin/AuthsController.php';
         $controller = new AuthsController();
         $action = $_GET['action'] ?? 'auth';
         if ($action === 'auth') {
