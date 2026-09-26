@@ -3,8 +3,8 @@
 <?php
 $seoData = $seoData ?? [];
 
-$title = $seoData['title'] ?? '';
-$description = $seoData['description'] ?? '';
+$title = $seoData['title'] ?: ($config['site_name'] ?? 'Ikusa');
+$description = $seoData['description'] ?: ($config['description'] ?? '');
 $keywords = $seoData['keywords'] ?? '';
 
 $og_title = $seoData['og_title'] ?? '';
@@ -22,6 +22,13 @@ $site['url'] = $site['url'] ?? '';
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<?php
+$host = parse_url('http://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'), PHP_URL_HOST);
+$robots = in_array($host, ['localhost', '127.0.0.1'], true) ? 'noindex, nofollow' : 'index, follow';
+?>
+<meta name="robots" content="<?= $robots ?>">
+<meta name="author" content="Ikusa">
+<meta name="publisher" content="Ikusa">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?></title>
