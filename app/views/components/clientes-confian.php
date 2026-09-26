@@ -6,7 +6,7 @@ $clientes = [
     ['nombre' => 'Porlamar',            'archivo' => 'porlamar.png'],
     ['nombre' => 'Petit Café',          'archivo' => 'petit_cafe.png'],
 ];
-$rutaLogos = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/clients/';
+$rutaLogos = dirname(__DIR__, 3) . '/public_html/assets/img/clients/';
 ?>
 <section class="clientes-confian">
     <p class="clientes-confian__label">Confían en nosotros</p>
