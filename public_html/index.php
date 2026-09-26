@@ -178,6 +178,7 @@ switch ($page) {
   
         
     case 'services':
+        require_once __DIR__ . '/../app/Domains/Services/ServicesController.php';
         $controller = new \App\Domains\Services\ServicesController();
         $action     = $_GET['action'] ?? 'index';
     
