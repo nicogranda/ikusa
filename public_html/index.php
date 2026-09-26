@@ -9,7 +9,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 //require_once __DIR__ . '/../app/src/Shared/Model.php';
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // Cargar variables de entorno
 require_once '../app/config/env.php'; 
@@ -67,8 +67,9 @@ require_once '../app/src/Domains/Pages/PageController.php';
 $pageController = new \App\Domains\Pages\PageController($mysqli);
 $newSystemTranslation = $pageController->resolve($lang, $page);
 
-// SEO
-require '../app/config/seo.php';
+// URL canónica para las etiquetas del head, sin consultar el SEO antiguo.
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$currentUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ($_SERVER['REQUEST_URI'] ?? '/');
 
 $seoData = array_merge([
     'title' => '',
