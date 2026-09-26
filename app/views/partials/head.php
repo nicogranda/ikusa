@@ -46,10 +46,10 @@ $site['url'] = $site['url'] ?? '';
 <meta name="twitter:image" content="<?= htmlspecialchars($site['url'] . '/' . $twitter_image, ENT_QUOTES, 'UTF-8'); ?>">
 
 <!-- Cookie consent (debe cargar antes que cualquier script gated de abajo) -->
-<link rel="stylesheet" href="/assets/css/cookie-consent.css">
-<script src="/assets/js/cookie-consent.js"></script>
+<link rel="stylesheet" href="<?= htmlspecialchars(asset_url('css/cookie-consent.css'), ENT_QUOTES, 'UTF-8') ?>">
+<script src="<?= htmlspecialchars(asset_url('js/cookie-consent.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="<?= htmlspecialchars(asset_url('css/styles.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 <?php if (!empty($schema)): ?>
 <!-- Schema JSON-LD -->
