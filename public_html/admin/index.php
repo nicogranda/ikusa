@@ -4,12 +4,14 @@ ini_set('display_errors', 1);
 ob_start();
 
 if (session_status() === PHP_SESSION_NONE) session_start();
-require 'auth.php';
+require __DIR__ . '/auth.php';
+// El panel usa inclusiones relativas al directorio public_html.
+chdir(__DIR__ . '/..');
 
 // Carga variables de entorno
 require __DIR__ . '/../../app/config/env.php';
 
-$baseUrl = $_ENV['APP_URL'];
+$baseUrl = $_ENV['APP_URL'] ?? '';
 
 include __DIR__ . '/../../app/views/admin/partials/head.php';
 // require __DIR__ . '/../../app/config/assets.php';
@@ -25,7 +27,7 @@ include __DIR__ . '/../../app/views/admin/partials/nav.php';
 switch ($route) {
     
     case 'home':
-        // include '../app/views/admin/home.php';
+        echo '<main class="container py-4"><h1>Panel de administración</h1></main>';
         break;
         
     case 'users':
@@ -474,7 +476,7 @@ case 'irs':
     break;
         
     default:
-        include __DIR__ . '/../app/views/admin/404.php';
+        include __DIR__ . '/../../app/views/admin/404.php';
         break;
 }
 
