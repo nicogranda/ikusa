@@ -113,11 +113,9 @@ class InvoicesController
                         ? $user['username']
                         : 'User no encontrado';
 
-                $amount = $this->operation_detail->getAmount(
-                    $require['quote_id']
+                $requires[$key]['amount'] = $this->require->getAmountForQuote(
+                    (int) $require['quote_id']
                 );
-
-                $requires[$key]['amount'] = $amount['total'];
             }
         }
 
@@ -139,6 +137,55 @@ class InvoicesController
         $grandTotal = $this->require->getTotalAll();
 
         include dirname(__DIR__, 5) . "/app/src/Domains/Admin/Invoices/views/index.php";
+    }
+
+
+    /** Group every invoice of the selected period by its client. */
+    public function byClient(): void
+    {
+        $year = filter_var($_GET['year'] ?? date('Y'), FILTER_VALIDATE_INT);
+        $year = $year && $year >= 2000 && $year <= 2100 ? $year : (int) date('Y');
+
+        $month = filter_var($_GET['month'] ?? null, FILTER_VALIDATE_INT);
+        $month = $month !== false && $month !== null && $month >= 1 && $month <= 12
+            ? $month : null;
+
+        $selectedClientId = filter_var($_GET['client_id'] ?? null, FILTER_VALIDATE_INT);
+        $selectedClientId = $selectedClientId && $selectedClientId > 0 ? $selectedClientId : null;
+
+        $clients = $this->require->getClientsAlphabetically();
+        $invoices = $this->require->getInvoicesByClientForPeriod($year, $month);
+        $groups = [];
+        $periodTotalCents = 0;
+        $selectedTotalCents = 0;
+
+        foreach ($invoices as $invoice) {
+            $clientId = (int) ($invoice['client_id'] ?? 0);
+            $key = $clientId > 0 ? (string) $clientId : 'unknown';
+            $amountCents = (int) round((float) $invoice['amount'] * 100);
+            $periodTotalCents += $amountCents;
+
+            if ($selectedClientId !== null && $clientId !== $selectedClientId) {
+                continue;
+            }
+
+            if (!isset($groups[$key])) {
+                $groups[$key] = [
+                    'name' => $invoice['client_name'] ?: 'Cliente sin identificar',
+                    'invoices' => [],
+                    'total_cents' => 0,
+                ];
+            }
+
+            $invoice['amount_cents'] = $amountCents;
+            $groups[$key]['invoices'][] = $invoice;
+            $groups[$key]['total_cents'] += $amountCents;
+            $selectedTotalCents += $amountCents;
+        }
+
+        $annualTotalCents = (int) round((float) $this->require->getTotalByYear($year) * 100);
+
+        require __DIR__ . '/views/by-client.php';
     }
 
 
@@ -271,11 +318,9 @@ class InvoicesController
                         ? $business['email']
                         : 'N/A';
 
-                $amount = $this->operation_detail->getAmount(
-                    $require['quote_id']
+                $require['amount'] = $this->require->getAmountForQuote(
+                    (int) $require['quote_id']
                 );
-
-                $require['amount'] = $amount['total'];
             }
 
             unset($require);

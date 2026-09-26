@@ -314,6 +314,11 @@ switch ($route) {
     case 'invoices':
         require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Invoices/InvoicesController.php";
         $controller = new InvoicesController($mysqli);
+
+        if ($action === 'by-client') {
+            $controller->byClient();
+            break;
+        }
     
         if ($action === 'create') {
             $controller->create(); // Llama al método que maneja GET y POST

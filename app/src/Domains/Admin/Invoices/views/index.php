@@ -2,6 +2,7 @@
 $pages = 'invoices'; // Define la variable con un valor por defecto
 ?>
 
+<div class="mb-3"><a class="btn btn-outline-primary" href="index.php?page=invoices&amp;action=by-client&amp;year=<?= (int) $year ?><?= !empty($_POST['month']) ? '&amp;month=' . (int) $_POST['month'] : '' ?>">Ver por clientes</a></div>
 <div class="search-bar">
     <?php if ($currentPage > 1): ?>
         <a href="index.php?page=<?= $pages ?>&action=index&currentPage=<?= $currentPage - 1 ?>">&lt;&lt;</a>
