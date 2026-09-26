@@ -131,6 +131,6 @@ class AuthsController
 
     private function panelUrl(): string
     {
-        return dirname(asset_url('img/favicon.png'), 3) . '/admin/index.php';
+        return rtrim(dirname(asset_url('img/favicon.png'), 3), '/') . '/admin/index.php';
     }
 }
