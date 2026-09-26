@@ -10,16 +10,17 @@ class AuthsController
         global $mysqli;
         $this->mysqli = $mysqli;
 
-        if (class_exists(\Google\Client::class)
-            && !empty($_ENV['GOOGLE_CLIENT_ID'])
-            && !empty($_ENV['GOOGLE_CLIENT_SECRET'])
-            && !empty($_ENV['GOOGLE_REDIRECT_URI'])) {
-            $this->googleClient = new \Google\Client();
-            $this->googleClient->setClientId($_ENV['GOOGLE_CLIENT_ID']);
-            $this->googleClient->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-            $this->googleClient->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
-            $this->googleClient->addScope('email');
-            $this->googleClient->addScope('profile');
+        if (class_exists(\Google\Client::class) && !empty($_ENV['GOOGLE_CLIENT_ID'])) {
+            $this->googleClient = new \Google\Client([
+                'client_id' => $_ENV['GOOGLE_CLIENT_ID'],
+            ]);
+            if (!empty($_ENV['GOOGLE_CLIENT_SECRET'])
+                && !empty($_ENV['GOOGLE_REDIRECT_URI'])) {
+                $this->googleClient->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
+                $this->googleClient->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+                $this->googleClient->addScope('email');
+                $this->googleClient->addScope('profile');
+            }
         }
     }
 
@@ -29,6 +30,10 @@ class AuthsController
         $isLocal = in_array($host, ['localhost', '127.0.0.1'], true);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (str_starts_with(strtolower($_SERVER['CONTENT_TYPE'] ?? ''), 'application/json')) {
+                $this->googleCredentialLogin();
+                return;
+            }
             if (!$isLocal) {
                 http_response_code(405);
                 return;
@@ -52,8 +57,68 @@ class AuthsController
             return;
         }
 
-        $googleLoginEnabled = $this->googleClient !== null && !$isLocal;
+        $googleLoginEnabled = $this->googleClient !== null;
+        if ($googleLoginEnabled) {
+            $_SESSION['google_login_csrf'] ??= bin2hex(random_bytes(32));
+        }
         include __DIR__ . '/../../views/admin/auth/login.php';
+    }
+
+    private function googleCredentialLogin(): void
+    {
+        header('Content-Type: application/json; charset=UTF-8');
+
+        $csrf = (string) ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
+        if ($this->googleClient === null || $csrf === ''
+            || !hash_equals((string) ($_SESSION['google_login_csrf'] ?? ''), $csrf)) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'Solicitud no autorizada.']);
+            return;
+        }
+
+        $request = json_decode(file_get_contents('php://input'), true);
+        $credential = is_array($request) ? ($request['credential'] ?? null) : null;
+        if (!is_string($credential) || strlen($credential) > 8192 || $credential === '') {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Token no válido.']);
+            return;
+        }
+
+        try {
+            $claims = $this->googleClient->verifyIdToken($credential);
+            $email = is_array($claims) ? ($claims['email'] ?? null) : null;
+            if (!$claims || empty($claims['email_verified'])
+                || !is_string($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new \RuntimeException('Token de Google inválido.');
+            }
+
+            // Para emails externos Google no garantiza la titularidad actual.
+            $gmail = str_ends_with(strtolower($email), '@gmail.com');
+            if (!$gmail && empty($claims['hd'])) {
+                throw new \RuntimeException('La cuenta requiere verificación adicional.');
+            }
+
+            $stmt = $this->mysqli->prepare(
+                'SELECT id, username, name, lastname, email, role
+                 FROM users WHERE email = ? LIMIT 1'
+            );
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            if (!$user || $user['role'] !== 'admin') {
+                throw new \RuntimeException('La cuenta no tiene acceso al panel.');
+            }
+
+            unset($_SESSION['google_login_csrf']);
+            $this->startSession($user);
+            echo json_encode(['success' => true, 'redirect' => $this->panelUrl()]);
+        } catch (\Throwable $exception) {
+            error_log('Admin Google token rejected: ' . $exception->getMessage());
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'No se pudo iniciar sesión con Google.']);
+        }
     }
 
     private function passwordLogin(): void
