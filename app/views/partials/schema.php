@@ -1,7 +1,16 @@
 <?php
-$route = $page;
-$currentUrl = $config['url'] . $_SERVER['REQUEST_URI'];
-$route      = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+if ($routePrefix !== '' && ($requestPath === $routePrefix || str_starts_with($requestPath, $routePrefix . '/'))) {
+    $requestPath = substr($requestPath, strlen($routePrefix)) ?: '/';
+}
+if ($requestPath === '/public_html' || str_starts_with($requestPath, '/public_html/')) {
+    $requestPath = substr($requestPath, strlen('/public_html')) ?: '/';
+}
+if ($requestPath === '/' || $requestPath === '/index.php') {
+    $requestPath = '/' . ($lang ?? 'es');
+}
+$currentUrl = rtrim((string) ($config['url'] ?? ''), '/') . $requestPath;
+$route = trim($requestPath, '/');
 
 $site = [
     'name'        => $config['site_name'],
