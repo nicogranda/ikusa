@@ -13,6 +13,56 @@
         background: #fff;
         border-bottom: 1px solid #eee;
         padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+    }
+
+    .invoice-report {
+        width: min(960px, calc(100% - 32px));
+        max-width: none;
+        margin: 24px auto;
+        padding: 0;
+    }
+
+    .invoice-report table {
+        width: 100%;
+    }
+
+    .invoice-report .search-bar {
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 0 0 16px;
+    }
+
+    .invoice-report .search-bar form {
+        flex: 1 1 auto;
+        flex-wrap: nowrap;
+        min-width: 0;
+        gap: 8px;
+    }
+
+    .invoice-report .search-bar input {
+        flex: 1 1 140px;
+        min-width: 0;
+    }
+
+    .invoice-report .search-bar a {
+        margin: 0;
+        padding: 0 12px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 760px) {
+        .invoice-report .search-bar form {
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .invoice-report .search-bar input {
+            flex-basis: 100%;
+        }
     }
 
     .navbar-ikusa .user-info {

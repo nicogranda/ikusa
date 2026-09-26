@@ -2,7 +2,7 @@
 $periodLabel = $month === null ? (string) $year : sprintf('%02d/%d', $month, $year);
 $money = static fn (int $cents): string => number_format($cents / 100, 2, ',', '.') . ' €';
 ?>
-<main class="container py-4">
+<main class="invoice-report py-4">
     <h1>Facturas por cliente</h1>
     <p><a href="index.php?page=invoices&amp;action=index">Volver a facturas</a></p>
 
