@@ -12,6 +12,14 @@ if ($publicDir && $documentRoot && str_starts_with($publicDir, $documentRoot . D
     $assetPrefix = $scriptDirectory === '/' || $scriptDirectory === '.' ? '' : rtrim($scriptDirectory, '/');
 }
 
+$routePrefix = preg_replace('~/public_html$~', '', $assetPrefix);
+
+function route_url(string $path): string
+{
+    global $routePrefix;
+    return $routePrefix . '/' . ltrim($path, '/');
+}
+
 function asset_url(string $path): string
 {
     global $assetPrefix;
@@ -20,7 +28,7 @@ function asset_url(string $path): string
 
 // Compatibilidad con las vistas antiguas que aún imprimen /assets/.
 // El filtro solo actúa sobre HTML y deja intactas las respuestas de archivos.
-ob_start(static function (string $output) use ($assetPrefix): string {
+ob_start(static function (string $output) use ($assetPrefix, $routePrefix): string {
     if ($assetPrefix === '') {
         return $output;
     }
@@ -34,7 +42,15 @@ ob_start(static function (string $output) use ($assetPrefix): string {
     }
 
     $output = preg_replace('~(?<![A-Za-z0-9._-])/assets/~', $assetPrefix . '/assets/', $output);
-    return str_replace('https://ikusa.net/assets/', $assetPrefix . '/assets/', $output);
+    $output = str_replace('https://ikusa.net/assets/', $assetPrefix . '/assets/', $output);
+    if ($routePrefix !== '') {
+        $output = preg_replace_callback(
+            '~(?<![A-Za-z0-9._-])/(es|en|eu)(?=/|\\b)~',
+            static fn(array $match): string => $routePrefix . '/' . $match[1],
+            $output
+        );
+    }
+    return $output;
 });
 
 session_start();
