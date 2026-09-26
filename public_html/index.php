@@ -118,6 +118,9 @@ require_once '../app/src/Domains/Pages/PageController.php';
 $pageController = new \App\Domains\Pages\PageController($mysqli);
 $newSystemTranslation = $pageController->resolve($lang, $page);
 
+// Recupera metadatos de la tabla seo; las traducciones nuevas tienen prioridad.
+require __DIR__ . '/../app/config/seo.php';
+
 // URL canónica para las etiquetas del head, sin consultar el SEO antiguo.
 $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $currentUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ($_SERVER['REQUEST_URI'] ?? '/');
