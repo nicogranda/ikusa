@@ -166,8 +166,8 @@ function formatPhoneDisplay($phone) {
 <!-- enlace de gestión de cookies (footer) -->
 
 <!-- justo antes de </body>, en el layout principal -->
-<link rel="stylesheet" href="/assets/css/cookie-consent.css">
-<script src="/assets/js/cookie-consent.js"></script>
+<link rel="stylesheet" href="<?= htmlspecialchars(asset_url('css/cookie-consent.css'), ENT_QUOTES, 'UTF-8') ?>">
+<script src="<?= htmlspecialchars(asset_url('js/cookie-consent.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 <script>
   CookieConsent.init({
     lang: 'es',
