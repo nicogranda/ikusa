@@ -1,6 +1,41 @@
 <?php
 // index.php
-ob_start();
+// La URL pública de assets depende del document root, no del dominio.
+$publicDir = realpath(__DIR__);
+$documentRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?? '');
+$assetPrefix = '';
+
+if ($publicDir && $documentRoot && str_starts_with($publicDir, $documentRoot . DIRECTORY_SEPARATOR)) {
+    $assetPrefix = str_replace(DIRECTORY_SEPARATOR, '/', substr($publicDir, strlen($documentRoot)));
+} elseif ($publicDir !== $documentRoot) {
+    $scriptDirectory = dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php');
+    $assetPrefix = $scriptDirectory === '/' || $scriptDirectory === '.' ? '' : rtrim($scriptDirectory, '/');
+}
+
+function asset_url(string $path): string
+{
+    global $assetPrefix;
+    return $assetPrefix . '/assets/' . ltrim(preg_replace('~^/?assets/~', '', $path), '/');
+}
+
+// Compatibilidad con las vistas antiguas que aún imprimen /assets/.
+// El filtro solo actúa sobre HTML y deja intactas las respuestas de archivos.
+ob_start(static function (string $output) use ($assetPrefix): string {
+    if ($assetPrefix === '') {
+        return $output;
+    }
+
+    foreach (headers_list() as $header) {
+        if (stripos($header, 'Content-Type:') === 0
+            && stripos($header, 'text/html') === false
+            && stripos($header, 'application/xhtml+xml') === false) {
+            return $output;
+        }
+    }
+
+    $output = preg_replace('~(?<![A-Za-z0-9._-])/assets/~', $assetPrefix . '/assets/', $output);
+    return str_replace('https://ikusa.net/assets/', $assetPrefix . '/assets/', $output);
+});
 
 session_start();
 
