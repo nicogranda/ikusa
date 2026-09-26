@@ -81,7 +81,7 @@ if (
     $_GET['client'] !== ''
 ) {
 
-    require_once __DIR__ . '/../app/views/admin/sales/invoices/rocket_invoice_view.php';
+    require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Invoices/views/rocket_invoice_view.php';
     exit;
 }
 
@@ -178,7 +178,7 @@ switch ($page) {
   
         
     case 'services':
-        require_once __DIR__ . '/../app/Domains/Services/ServicesController.php';
+        require_once __DIR__ . '/../app/src/Domains/Services/ServicesController.php';
         $controller = new \App\Domains\Services\ServicesController();
         $action     = $_GET['action'] ?? 'index';
     
@@ -314,7 +314,7 @@ switch ($page) {
         if ($isGoogleJsonRequest) {
             ob_clean();
         }
-        require_once __DIR__ . '/../app/controllers/admin/AuthsController.php';
+        require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Auth/AuthsController.php';
         $controller = new AuthsController();
         $action = $_GET['action'] ?? 'auth';
         if ($action === 'auth') {
@@ -324,7 +324,7 @@ switch ($page) {
     
     case 'E-mail':
         // require_once "../app/views/auth/login.php";
-        require_once "../app/controllers/admin/EmailsController.php";
+        require_once dirname(__DIR__, 1) . "/app/src/Domains/Admin/Email/EmailsController.php";
         $controller = new MailController();
      
         if ($_GET['action'] === 'create') {
@@ -360,8 +360,8 @@ switch ($page) {
         
     case 'messaging':
         ob_end_clean();
-        require_once '../app/Domains/Messaging/MessagingRepository.php';
-        require_once '../app/Domains/Messaging/MessagingController.php';
+        require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Messaging/MessagingRepository.php';
+        require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Messaging/MessagingController.php';
     
         $controller = new \App\Domains\Messaging\MessagingController($mysqli);
     
@@ -420,8 +420,8 @@ switch ($page) {
     else {
      
         // Cargar categorías para el footer
-        require_once __DIR__ . '/../app/libraries/admin/Model.php';
-        require_once __DIR__ . '/../app/models/admin/Category.php';
+        require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Shared/Model.php';
+        require_once dirname(__DIR__, 1) . '/app/src/Domains/Admin/Categories/Category.php';
         
         $categoryModel = new \App\Models\Admin\Category();
         $categories = $categoryModel->getAll();

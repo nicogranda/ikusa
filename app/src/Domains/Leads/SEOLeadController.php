@@ -135,7 +135,7 @@ class SEOLeadController
 
         require_once '../app/config/email.php';
 
-        include '../app/views/admin/E-mail/mail.php';
+        include dirname(__DIR__, 4) . '/app/src/Domains/Admin/Email/views/mail.php';
 
         require_once '../app/libraries/inc_phpmailer.php';
 

@@ -3,14 +3,14 @@ namespace App\Controllers\RFQ;
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 
-require_once '../app/libraries/admin/Model.php';
-require_once '../app/models/admin/Quote.php';
-require_once '../app/models/admin/Client.php';
-require_once '../app/models/admin/QuoteDetail.php';
-require_once '../app/models/admin/Product.php';
-require_once '../app/models/admin/OperationData.php'; // Agregar esta línea
-require_once '../app/models/admin/Invoice.php';
-require_once '../app/models/admin/Category.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Shared/Model.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Quotes/Quote.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Clients/Client.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/QuoteDetails/QuoteDetail.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Products/Product.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Shared/OperationData.php'; // Agregar esta línea
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Invoices/Invoice.php';
+require_once dirname(__DIR__, 3) . '/app/src/Domains/Admin/Categories/Category.php';
 
 use App\Models\Admin\OperationData; // Si usas namespaces, agrégalo aquí
 
@@ -293,7 +293,7 @@ public function create()
             }
         
         //Show
-        include '../../app/views/admin/sales/quotes/show.php';
+        include dirname(__DIR__, 3) . '/app/src/Domains/Admin/Quotes/views/show.php';
 
     }
     
@@ -460,7 +460,7 @@ public function create()
                 $total = $total + $balance +$vat;
             }
         }
-        include '../../app/views/admin/sales/quotes/print.php';
+        include dirname(__DIR__, 3) . '/app/src/Domains/Admin/Quotes/views/print.php';
     }
     
     public function delete($id)

@@ -9,19 +9,20 @@ require __DIR__ . '/auth.php';
 chdir(__DIR__ . '/..');
 
 // Carga variables de entorno
-require __DIR__ . '/../../app/config/env.php';
+require dirname(__DIR__, 2) . '/app/config/env.php';
 
 $baseUrl = $_ENV['APP_URL'] ?? '';
 
-include __DIR__ . '/../../app/views/admin/partials/head.php';
+include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Shared/views/partials/head.php';
 // require __DIR__ . '/../../app/config/assets.php';
-require __DIR__ . '/../../app/config/connection.php';
+require dirname(__DIR__, 2) . '/app/config/connection.php';
 
 
 // Determina la página a cargar
 $route = isset($_GET['page']) ? $_GET['page'] : 'home';
+$action = $_GET['action'] ?? 'index';
 
-include __DIR__ . '/../../app/views/admin/partials/nav.php';
+include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Shared/views/partials/nav.php';
     
 // Carga la vista correspondiente o muestra un 404 si la página no existe
 switch ($route) {
@@ -36,43 +37,43 @@ switch ($route) {
         
     case 'logout':
         //include 'app/views/users/logout.php';
-       include '../app/views/admin/auth/logout.php';
+       include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Auth/views/logout.php';
         break;    
         
     case 'order':
-        require_once "../app/controllers/admin/OrdersController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Orders/OrdersController.php";
         $controller = new OrdersController($mysqli);
     
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
             $controller->create(); // Llama al método que maneja GET y POST
         }
         
-        if ($_GET['action'] === 'index') {
+        if ($action === 'index') {
             $controller->index(); // Llama al método que maneja GET y POST
         }
 
-        if ($_GET['action'] === 'search') {
+        if ($action === 'search') {
             $controller->search(); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'mail') {
+        if ($action === 'mail') {
           $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
            $controller->mail($id); // Ver el POST[mail] abajo 6/2/2025
         }
         
-        if ($_GET['action'] === 'show') {
+        if ($action === 'show') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->show($id); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'delete' && isset($_GET['id'])) {
+        if ($action === 'delete' && isset($_GET['id'])) {
             $controller->delete($_GET['id']); // Pasa el id de la orden
         }
 
         break;
 
     case 'categories':
-        require_once "../app/controllers/admin/CategoriesController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Categories/CategoriesController.php";
         $controller = new CategoriesController();
     
         $action = isset($_GET['action']) ? $_GET['action'] : 'index';
@@ -101,7 +102,7 @@ switch ($route) {
             break;
         
     case 'products':
-        require_once "../app/controllers/admin/ProductsController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Products/ProductsController.php";
         $controller = new ProductsController($mysqli);
 
         $action = isset($_GET['action']) ? $_GET['action'] : 'index';
@@ -150,7 +151,7 @@ switch ($route) {
         break;
 
     case 'clients':
-        require_once "../../app/Domains/Clients/ClientsController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Clients/ClientsController.php";
         $controller = new \App\Domains\Clients\ClientsController($mysqli);
     
         $action = $_GET['action'] ?? 'index';
@@ -174,44 +175,49 @@ switch ($route) {
         }
         break;
 
+    case 'providers':
+        require_once dirname(__DIR__, 2) . '/app/src/Domains/Admin/Providers/ProvidersController.php';
+        (new ProvidersController($mysqli))->index();
+        break;
+
     case 'quotes':
-        require_once "../../app/controllers/admin/QuotesController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Quotes/QuotesController.php";
         $controller = new QuotesController($mysqli);
         
-        if ($_GET['action'] === 'index') {
+        if ($action === 'index') {
             $controller->index(); // Llama al método que maneja GET y POST
         }
         
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
            $controller->create(); // Ver el POST[mail] abajo 6/2/2025
         }
       
-        if ($_GET['action'] === 'search') {
+        if ($action === 'search') {
             $controller->search(); // Llama al método que maneja GET y POST
         }
       
-        if ($_GET['action'] === 'show') {
+        if ($action === 'show') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->show($id); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'update') {
+        if ($action === 'update') {
             $id = isset($_POST['operation_id']) ? (int) $_POST['operation_id'] : 0;
             $data = $_POST;
             $controller->update($id, $data);
         }
 
-        if ($_GET['action'] === 'delete') {
+        if ($action === 'delete') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->delete($id); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'print') {
+        if ($action === 'print') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             header("Location: /admin/fpdf/quote.php?id=".$id);
         }
         
-        if ($_GET['action'] === 'mail') {
+        if ($action === 'mail') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
             $controller->mail($id);
         }
@@ -219,63 +225,63 @@ switch ($route) {
     break;
 
     case 'quote_details':
-       require_once "../../app/controllers/admin/QuotesDetailsController.php";
+       require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/QuoteDetails/QuotesDetailsController.php";
        $controller = new QuotesDetailsController($mysqli);
         
         //
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
            $id = isset($_POST['operation_id']) ? (int) $_POST['operation_id'] : 0;
            $data = $_POST;
            $controller->create($data); // Llama al método que maneja GET y POST
         }
         //
-        if ($_GET['action'] === 'delete') {
+        if ($action === 'delete') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
            $controller->delete($id); // Pasar el ID al método
         }
     break;
     
     case 'requests':
-        require_once "../../app/controllers/admin/RequestsController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Requests/RequestsController.php";
         $controller = new RFQsController();
         
-        if ($_GET['action'] === 'index') {
+        if ($action === 'index') {
           $controller->index(); // Llama al método que maneja GET y POST
               
         }
       
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
             $controller->create(); // Llama al método que maneja GET y POST
         }
         
         
-        if ($_GET['action'] === 'search') {
+        if ($action === 'search') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->search(); // Llama al método que maneja GET y POST
         }
       
-        if ($_GET['action'] === 'show') {
+        if ($action === 'show') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->show($id); // Pasar el ID al método
         }
 
-        if ($_GET['action'] === 'update') {
+        if ($action === 'update') {
             $id = isset($_POST['operation_id']) ? (int) $_POST['operation_id'] : 0;
             $data = $_POST;
             $controller->update($id, $data);
         }
         
-        if ($_GET['action'] === 'print') {
+        if ($action === 'print') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->print($id); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'mail') {
+        if ($action === 'mail') {
           $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
            $controller->mail($id); // Ver el POST[mail] abajo 6/2/2025
         }
         
-        if ($_GET['action'] === 'delete') {
+        if ($action === 'delete') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->delete($id); // Pasar el ID al método
         }
@@ -283,18 +289,18 @@ switch ($route) {
     break;
 
     case 'supplies':
-        require_once "../../app/controllers/admin/SuppliesController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Supplies/SuppliesController.php";
         $controller = new SuppliesController();
 
-        if ($_GET['action'] === 'index') {
+        if ($action === 'index') {
            $controller->index(); // Llama al método que maneja GET y POST
         }
         
-        if ($_GET['action'] === 'search') {
+        if ($action === 'search') {
            $controller->search(); // Llama al método que maneja GET y POST
         }
         
-        if ($_GET['action'] === 'read') {
+        if ($action === 'read') {
            $controller->read(); // Llama al método que maneja GET y POST
         }
 
@@ -306,32 +312,32 @@ switch ($route) {
         break;
 
     case 'invoices':
-        require_once "../../app/controllers/admin/InvoicesController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Invoices/InvoicesController.php";
         $controller = new InvoicesController($mysqli);
     
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
             $controller->create(); // Llama al método que maneja GET y POST
         }
         
-        if ($_GET['action'] === 'index') {
+        if ($action === 'index') {
             $controller->index(); // Llama al método que maneja GET y POST
         }
 
-        if ($_GET['action'] === 'search') {
+        if ($action === 'search') {
             $controller->search(); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'mail') {
+        if ($action === 'mail') {
           $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
            $controller->mail($id); // Ver el POST[mail] abajo 6/2/2025
         }
         
-        if ($_GET['action'] === 'show') {
+        if ($action === 'show') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // Asegurarse de que sea un número entero
             $controller->show($id); // Pasar el ID al método
         }
         
-        if ($_GET['action'] === 'print') {
+        if ($action === 'print') {
             $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
         
             ob_end_clean();
@@ -340,7 +346,7 @@ switch ($route) {
             exit;
         }
         
-        if ($_GET['action'] === 'delete' && isset($_GET['id'])) {
+        if ($action === 'delete' && isset($_GET['id'])) {
             $controller->delete($_GET['id']); // Pasa el id de la orden
         }
 
@@ -348,7 +354,7 @@ switch ($route) {
 
 case 'collection':
 case 'collections':
-    require_once "../../app/controllers/admin/CollectionController.php";
+    require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Collections/CollectionController.php";
     $controller = new CollectionController($mysqli);
 
     $action = $_GET['action'] ?? 'index';
@@ -386,8 +392,8 @@ case 'collections':
 
     case 'messaging':
         ob_end_clean();
-        require_once '../../app/Domains/Messaging/MessagingRepository.php';
-        require_once '../../app/Domains/Messaging/MessagingController.php';
+        require_once dirname(__DIR__, 2) . '/app/src/Domains/Admin/Messaging/MessagingRepository.php';
+        require_once dirname(__DIR__, 2) . '/app/src/Domains/Admin/Messaging/MessagingController.php';
     
         $controller = new \App\Domains\Messaging\MessagingController($mysqli);
     
@@ -399,28 +405,28 @@ case 'collections':
         exit;
 
     case 'E-mail':
-        require_once "../../app/controllers/admin/EmailsController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Email/EmailsController.php";
         $controller = new MailController();
         
 
-        if ($_GET['action'] === 'create') {
+        if ($action === 'create') {
             $controller->create(); // Llama al método que maneja GET y POST
         }
         break;  
               
     
     case 'carnets':
-        require_once "../../app/controllers/admin/QuotesController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Quotes/QuotesController.php";
         $controller = new QuotesController($mysqli);
         
-        if ($_GET['action'] === 'print') {
+        if ($action === 'print') {
             //header("Location: /admin/TCPDF/examples/example_001.php");
             header("Location: /admin/TCPDF/examples/carnets.php");
         }              
         break;  
            
     case 'keywords':
-        require_once "../../app/controllers/admin/KeywordsController.php";
+        require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Keywords/KeywordsController.php";
         $controller = new KeywordsController();
         $action = $_GET['action'] ?? 'index';
         if ($action === 'suggest') {
@@ -431,8 +437,8 @@ case 'collections':
         break;
 
 case 'irs':
-    require_once "../../app/Domains/Irs/IrsFilingRepository.php";
-    require_once "../../app/Domains/Irs/IrsController.php";
+    require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Irs/IrsFilingRepository.php";
+    require_once dirname(__DIR__, 2) . "/app/src/Domains/Admin/Irs/IrsController.php";
 
     $controller = new \App\Domains\Irs\IrsController($mysqli);
 
@@ -476,7 +482,7 @@ case 'irs':
     break;
         
     default:
-        include __DIR__ . '/../../app/views/admin/404.php';
+        include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Shared/views/404.php';
         break;
 }
 

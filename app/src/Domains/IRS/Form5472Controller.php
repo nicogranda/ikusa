@@ -73,6 +73,6 @@ class Form5472Controller
         $data['invoices'] = $invoices;
         $data['gross_payments_form'] = $totalGrossPayments;
     
-        include '/home/ot2ryobi838h/app/views/admin/irs/form5472.php';
+        include dirname(__DIR__, 4) . '/app/src/Domains/Admin/Irs/views/form5472.php';
     }
 }
