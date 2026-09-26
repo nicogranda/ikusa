@@ -60,6 +60,10 @@ class AuthsController
         $googleLoginEnabled = $this->googleClient !== null;
         if ($googleLoginEnabled) {
             $_SESSION['google_login_csrf'] ??= bin2hex(random_bytes(32));
+            header('Cross-Origin-Opener-Policy: same-origin-allow-popups');
+            if ($isLocal) {
+                header('Referrer-Policy: no-referrer-when-downgrade');
+            }
         }
         include __DIR__ . '/../../views/admin/auth/login.php';
     }
