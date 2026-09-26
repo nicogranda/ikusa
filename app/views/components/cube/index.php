@@ -106,22 +106,22 @@
 <div class="container-hero-home">
     <div class="caja">
         <div class="cara cara1">
-            <img src="assets/img/heros/cube/1.jpg" alt="Cara 1">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/1.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 1">
         </div>
         <div class="cara cara2">
-            <img src="assets/img/heros/cube/2.jpg" alt="Cara 2">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/2.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 2">
         </div>
         <div class="cara cara3">
-            <img src="assets/img/heros/cube/3.jpg" alt="Cara 3">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/3.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 3">
         </div>
         <div class="cara cara4">
-            <img src="assets/img/heros/cube/4.jpg" alt="Cara 4">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/4.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 4">
         </div>
         <div class="cara cara5">
-            <img src="assets/img/heros/cube/5.jpg" alt="Cara 5">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/5.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 5">
         </div>
         <div class="cara cara6">
-            <img src="assets/img/heros/cube/6.jpg" alt="Cara 6">
+            <img src="<?= htmlspecialchars(asset_url('img/heros/cube/6.jpg'), ENT_QUOTES, 'UTF-8') ?>" alt="Cara 6">
         </div>
     </div>
 </div>
