@@ -9,6 +9,8 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 RewriteRule ^(es|en|eu)/?$ public_html/index.php?lang=$1&page=home [L,QSA]
 RewriteRule ^es/(desarrollo-web|diseno-grafico|marketing-digital)/?$ public_html/index.php?lang=es&page=services&action=$1 [L,QSA]
+RewriteRule ^admin/?$ public_html/index.php?lang=es&page=admin&action=auth [L,QSA]
+RewriteRule ^es/admin/?$ public_html/index.php?lang=es&page=admin&action=auth [L,QSA]
 RewriteRule ^es/contacto/?$ public_html/index.php?lang=es&page=contact&action=create [L,QSA]
 RewriteRule ^es/nosotros/?$ public_html/index.php?lang=es&page=about [L,QSA]
 RewriteRule ^es/tarjetas-de-visitas/?$ public_html/index.php?lang=es&page=cards [L,QSA]
