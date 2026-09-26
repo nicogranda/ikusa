@@ -4,49 +4,39 @@ namespace App\Domains\Services;
 
 class ServicesController
 {
-    private string $lang;
     private string $viewsPath;
-    private Service $serviceModel;
 
     public function __construct()
     {
-        $this->lang         = $_GET['lang'] ?? 'es';
-        $this->viewsPath    = __DIR__ . '/../../../app/views/services/';
-        $this->serviceModel = new Service($this->lang);
+        $this->viewsPath = __DIR__ . '/../../views/services/';
     }
 
     public function index(): void
     {
-        $services = $this->serviceModel->getAll();
-        $lang     = $this->lang;
-        include $this->viewsPath . 'index.php';
+        $this->notFound();
     }
 
     public function show(string $slug): void
     {
-        $map = [
-            'diseno-grafico'    => 'diseno_grafico',
-            'desarrollo-web'    => 'desarrollo_web',
-            'marketing-digital' => 'marketing_digital',
+        $views = [
+            'diseno-grafico'    => 'diseno_grafico.php',
+            'desarrollo-web'    => 'desarrollo_web.php',
+            'marketing-digital' => 'marketing_digital.php',
         ];
 
-        $file = $map[$slug] ?? null;
+        $file = $views[$slug] ?? null;
 
-        if (!$file || !file_exists($this->viewsPath . $file . '.php')) {
+        if ($file === null || !is_file($this->viewsPath . $file)) {
             $this->notFound();
             return;
         }
 
-        $service         = $this->serviceModel->getBySlug($slug);
-        $relatedServices = $this->serviceModel->getRelated($slug);
-        $lang            = $this->lang;
-
-        include $this->viewsPath . $file . '.php';
+        include $this->viewsPath . $file;
     }
 
     private function notFound(): void
     {
         http_response_code(404);
-        include __DIR__ . '/../../../app/views/404.php';
+        include __DIR__ . '/../../views/404.php';
     }
 }
