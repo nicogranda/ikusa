@@ -15,3 +15,18 @@
 @media(max-width:800px){.about-container{width:min(100% - 32px,1180px)}.about-hero__grid,.about-heading-split,.about-cta{grid-template-columns:1fr}.about-hero__grid{padding-top:60px}.about-hero__image img{max-height:300px}.feature-grid,.team-grid,.places-grid{grid-template-columns:1fr}.about-section{padding:64px 0}.team-card__image{height:390px}.about-cta__content{padding:60px 24px}}
 
 .about-page .about-hero h1,.about-page .about-section h2,.about-page .about-cta h2{font-family:var(--font-brand,Arial,sans-serif)}
+
+/* Imágenes provisionales: cada recuadro usa una zona del atlas 3 × 3. */
+.about-page .about-atlas{background-image:url('../img/About/about-visual-atlas.png');background-size:300% 300%;background-repeat:no-repeat;width:100%;height:100%}
+.about-page .about-atlas--coffee{background-position:0% 0%}
+.about-page .about-atlas--marketing{background-position:50% 0%}
+.about-page .about-atlas--designer{background-position:100% 0%}
+.about-page .about-atlas--atlanta{background-position:0% 50%}
+.about-page .about-atlas--donostia{background-position:50% 50%}
+.about-page .about-atlas--puerto-ordaz{background-position:100% 50%}
+.about-page .about-atlas--cafe{background-position:0% 100%}
+.about-page .about-hero__image .about-atlas{aspect-ratio:1/1;max-height:430px}
+.about-page .place-card .about-atlas{aspect-ratio:1.5/1;height:auto}
+.about-page .about-cta__image .about-atlas{min-height:390px}
+.about-page .team-card__note{display:block;margin-top:3px;color:var(--ikusa-muted);font-size:12px}
+@media(max-width:800px){.about-page .about-hero__image .about-atlas{max-height:300px}}
