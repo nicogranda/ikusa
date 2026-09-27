@@ -168,7 +168,14 @@ class PageController
         |--------------------------------------------------------------------------
         */
 
-        include __DIR__ . '/Views/Show.php';
+        // About usa sus componentes propios cuando la traducción los declara.
+        if (in_array('About/Hero.php', $components, true)) {
+            require_once __DIR__ . '/../About/AboutModel.php';
+            require_once __DIR__ . '/../About/AboutController.php';
+            (new \App\Domains\About\AboutController())->show($components);
+        } else {
+            include __DIR__ . '/Views/Show.php';
+        }
 
         return true;
     }
