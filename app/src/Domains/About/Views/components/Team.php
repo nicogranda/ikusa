@@ -9,8 +9,9 @@
     <div class="team-grid">
       <?php foreach ($team['members'] as $member): ?>
       <article class="team-card">
-        <?php if (!empty($member['image'])): ?><div class="team-card__image"><img src="<?= htmlspecialchars($member['image']) ?>" alt="<?= htmlspecialchars($member['alt']) ?>" loading="lazy"></div><?php endif; ?>
+        <?php if (!empty($member['image'])): ?><div class="team-card__image"><?php if (!empty($member['image_tile'])): ?><div class="about-atlas about-atlas--<?= htmlspecialchars($member['image_tile']) ?>" role="img" aria-label="<?= htmlspecialchars($member['alt']) ?>"></div><?php else: ?><img src="<?= htmlspecialchars($member['image']) ?>" alt="<?= htmlspecialchars($member['alt']) ?>" loading="lazy"><?php endif; ?></div><?php endif; ?>
         <h3><?= htmlspecialchars($member['name']) ?></h3>
+        <?php if (!empty($member['image_note'])): ?><small class="team-card__note"><?= htmlspecialchars($member['image_note']) ?></small><?php endif; ?>
         <span class="team-card__role"><?= htmlspecialchars($member['role']) ?></span>
         <p><?= htmlspecialchars($member['text']) ?></p>
       </article>
