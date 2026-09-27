@@ -17,7 +17,7 @@
 .about-page .about-hero h1,.about-page .about-section h2,.about-page .about-cta h2{font-family:var(--font-brand,Arial,sans-serif)}
 
 /* Imágenes provisionales: cada recuadro usa una zona del atlas 3 × 3. */
-.about-page .about-atlas{background-image:url('../img/About/about-visual-atlas.png');background-size:300% 300%;background-repeat:no-repeat;width:100%;height:100%}
+.about-page .about-atlas{background-image:url('../img/About/about-visual-atlas.webp');background-size:300% 300%;background-repeat:no-repeat;width:100%;height:100%}
 .about-page .about-atlas--coffee{background-position:0% 0%}
 .about-page .about-atlas--marketing{background-position:50% 0%}
 .about-page .about-atlas--designer{background-position:100% 0%}
