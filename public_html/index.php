@@ -194,9 +194,13 @@ switch ($page) {
         break; 
 
     case 'about':
-        require_once __DIR__ . '/../app/src/Domains/About/AboutModel.php';
-        require_once __DIR__ . '/../app/src/Domains/About/AboutController.php';
-        (new \App\Domains\About\AboutController())->show();
+        if ($newSystemTranslation) {
+            $pageController->render($lang, $page);
+        } else {
+            require_once __DIR__ . '/../app/src/Domains/About/AboutModel.php';
+            require_once __DIR__ . '/../app/src/Domains/About/AboutController.php';
+            (new \App\Domains\About\AboutController())->show();
+        }
         break;
         
     case 'contact':
