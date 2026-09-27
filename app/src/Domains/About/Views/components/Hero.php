@@ -13,7 +13,7 @@
         <?php if (!empty($hero['secondary_cta'])): ?><a class="about-link" href="<?= htmlspecialchars($hero['secondary_cta']['url']) ?>"><?= htmlspecialchars($hero['secondary_cta']['label']) ?> ↓</a><?php endif; ?>
       </div>
     </div>
-    <?php if (!empty($hero['image'])): ?><div class="about-hero__image"><img src="<?= htmlspecialchars($hero['image']) ?>" alt="<?= htmlspecialchars($hero['image_alt'] ?? '') ?>"></div><?php endif; ?>
+    <?php if (!empty($hero['image'])): ?><div class="about-hero__image"><?php if (!empty($hero['image_tile'])): ?><div class="about-atlas about-atlas--<?= htmlspecialchars($hero['image_tile']) ?>" role="img" aria-label="<?= htmlspecialchars($hero['image_alt'] ?? '') ?>"></div><?php else: ?><img src="<?= htmlspecialchars($hero['image']) ?>" alt="<?= htmlspecialchars($hero['image_alt'] ?? '') ?>"><?php endif; ?></div><?php endif; ?>
   </div>
 </section>
 <?php endif; ?>
