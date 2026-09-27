@@ -44,9 +44,9 @@ return [
         'highlight' => 'pasando por Atlanta.',
         'text' => 'Trabajamos con clientes y proyectos a ambos lados del Atlántico. Nuestra forma de trabajar nació de experiencias, culturas y mercados diferentes, pero con una misma idea: estar cerca del cliente, aunque nos separen miles de kilómetros.',
         'items' => [
-            ['city' => 'Atlanta', 'country' => 'Estados Unidos', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'atlanta', 'alt' => 'Atlanta, Estados Unidos'],
-            ['city' => 'San Sebastián – Donostia', 'country' => 'España', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'donostia', 'alt' => 'San Sebastián Donostia, Gipuzkoa'],
-            ['city' => 'Puerto Ordaz', 'country' => 'Venezuela', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'puerto-ordaz', 'alt' => 'Puerto Ordaz, Venezuela']
+            ['city' => 'Atlanta', 'country' => 'Estados Unidos', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'atlanta', 'alt' => 'Imagen ilustrativa de Atlanta'],
+            ['city' => 'San Sebastián – Donostia', 'country' => 'España', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'donostia', 'alt' => 'Imagen ilustrativa de San Sebastián Donostia'],
+            ['city' => 'Puerto Ordaz', 'country' => 'Venezuela', 'image' => '/assets/img/About/about-visual-atlas.webp', 'image_tile' => 'puerto-ordaz', 'alt' => 'Imagen ilustrativa de Puerto Ordaz']
         ]
     ],
 
