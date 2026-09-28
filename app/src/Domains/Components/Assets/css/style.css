@@ -26,7 +26,7 @@
 .ik-components__team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,2.5vw,2.5rem)}
 .ik-components__team-card{min-width:0;background:transparent}
 .ik-components__team-photo{height:clamp(240px,30vw,390px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:#ededed}
-.ik-components__team-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.ik-components__team-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}
 .ik-components__team-body{padding:1.15rem 0 0}
 .ik-components__team-body h3{font-family:var(--font-brand,inherit);font-size:1.25rem;line-height:1.2;margin:0 0 .2rem;color:#161616}
 .ik-components__team-role{font-size:.75rem;text-transform:uppercase;letter-spacing:.025em;margin:0;color:#555}
