@@ -16,7 +16,7 @@ WHERE page_id = 3 AND language IN ('es', 'en');
 
 Esto reemplaza la lista anterior solo para About en español e inglés; guardar su valor previo antes si contiene otros componentes que quieras conservar. El hero sigue gestionándose por `hero_type` y `hero_path`.
 
-4. Subir estas imágenes reales a `public_html/assets/img/about/`: `atlanta.jpg`, `donostia.jpg`, `puerto-ordaz.jpg`, `cta-cafe.jpg`. Los nombres de archivo deben corresponder a las rutas de `components.image`.
+4. Subir estas imágenes reales a `public_html/assets/img/about/`: `places-reference.png` (la captura con los tres lugares) y `cta-cafe.jpg`. La vista recorta visualmente los tres lugares desde la captura sin modificar sus fotografías. Si los datos ya estaban importados, ejecutar `database/migrations/about-copy-refresh.sql` una sola vez para actualizar textos, nombre e imágenes.
 5. Comprobar `/es/nosotros` y `/en/about-us`, también en móvil.
 
 El CSS está en `app/src/Domains/About/Assets/css/style.css` y lo carga el componente; no se requiere acceso HTTP directo a esa carpeta.
