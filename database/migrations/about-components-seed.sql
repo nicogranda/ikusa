@@ -29,22 +29,22 @@ INSERT INTO component_translations (component_id, language, title, text) VALUES
 INSERT INTO components (name, type, sort_order) VALUES ('about-places', 'heading', 0);
 SET @places_heading = LAST_INSERT_ID();
 INSERT INTO component_translations (component_id, language, title, subtitle, text) VALUES
-(@places_heading, 'es', CONCAT('De Puerto Ordaz a Donostia,', CHAR(10), 'pasando por Atlanta.'), 'Una agencia sin fronteras', 'Trabajamos con clientes y proyectos a ambos lados del Atlántico. Nuestra forma de trabajar nació de experiencias, culturas y mercados diferentes, pero con una misma idea: estar cerca del cliente, aunque nos separen miles de kilómetros.'),
-(@places_heading, 'en', CONCAT('From Puerto Ordaz to Donostia,', CHAR(10), 'via Atlanta.'), 'An agency without borders', 'We work with clients and projects on both sides of the Atlantic. Our approach draws on different experiences, cultures and markets, with one shared idea: staying close to our clients, however many miles apart we are.');
+(@places_heading, 'es', CONCAT('Una mirada internacional.', CHAR(10), 'Una manera cercana de trabajar.'), 'Conexiones sin fronteras', 'Nuestra experiencia junto a clientes en España, Venezuela y Estados Unidos nos permite entender contextos distintos y encontrar oportunidades comunes. Escuchamos de cerca, colaboramos con claridad y adaptamos cada solución al mercado al que se dirige.'),
+(@places_heading, 'en', CONCAT('An international perspective.', CHAR(10), 'A personal way of working.'), 'Connections across borders', 'Our experience with clients in Spain, Venezuela and the United States helps us understand different contexts and find shared opportunities. We listen closely, collaborate clearly and adapt every solution to its market.');
 
-INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/atlanta.jpg', 1);
+INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/places-reference.png', 1);
 SET @atlanta = LAST_INSERT_ID();
 INSERT INTO component_translations (component_id, language, title, subtitle, image_alt) VALUES
 (@atlanta, 'es', 'Atlanta', 'Estados Unidos', 'Vista de la ciudad de Atlanta'),
 (@atlanta, 'en', 'Atlanta', 'United States', 'View of the city of Atlanta');
 
-INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/donostia.jpg', 2);
+INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/places-reference.png', 2);
 SET @donostia = LAST_INSERT_ID();
 INSERT INTO component_translations (component_id, language, title, subtitle, image_alt) VALUES
 (@donostia, 'es', 'San Sebastián – Donostia', 'España', 'Vista de la bahía de San Sebastián'),
 (@donostia, 'en', 'San Sebastián – Donostia', 'Spain', 'View of San Sebastián bay');
 
-INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/puerto-ordaz.jpg', 3);
+INSERT INTO components (name, type, image, sort_order) VALUES ('about-places', 'card', 'img/about/places-reference.png', 3);
 SET @puerto = LAST_INSERT_ID();
 INSERT INTO component_translations (component_id, language, title, subtitle, image_alt) VALUES
 (@puerto, 'es', 'Puerto Ordaz', 'Venezuela', 'Vista de Puerto Ordaz'),
