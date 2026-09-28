@@ -18,13 +18,13 @@ $isTeam = $name === 'team';
     <?php foreach ($items as $item): ?>
         <?php if ($item['type'] !== 'heading') continue; ?>
         <?php $lines = preg_split('/\R/u', trim((string) ($item['title'] ?? '')), 2); ?>
-        <header class="ik-components__team-heading">
+        <div class="ik-components__team-heading">
             <div>
                 <?php if (!empty($item['subtitle'])): ?><p class="ik-components__eyebrow"><?= $escape($item['subtitle']) ?></p><?php endif; ?>
                 <h2><?= $escape($lines[0] ?? '') ?><?php if (!empty($lines[1])): ?><br><span><?= $escape($lines[1]) ?></span><?php endif; ?></h2>
             </div>
             <?php if (!empty($item['text'])): ?><p><?= nl2br($escape($item['text'])) ?></p><?php endif; ?>
-        </header>
+        </div>
     <?php endforeach; ?>
     <div class="ik-components__team-grid">
     <?php foreach ($items as $item): ?>
