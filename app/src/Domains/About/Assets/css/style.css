@@ -13,7 +13,7 @@
 .about-places{padding:clamp(3rem,6vw,6rem) 0;background:#fff}
 .about-places__heading{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(220px,.75fr);gap:2rem;align-items:end;margin-bottom:2rem}
 .about-places__intro{color:#555;line-height:1.55;margin:0}
-.about-places__card img{display:block;width:100%;aspect-ratio:1.38;object-fit:cover;background:#eee;margin-bottom:1.15rem}
+.about-places__card img,.about-places__photo{display:block;width:100%;aspect-ratio:1.38;object-fit:cover;background:#eee;margin-bottom:1.15rem}
 .about-places__card p::after{content:"";display:block;width:31px;height:3px;background:var(--color-primary,#d02d32);margin:.75rem 0 0}
 .about-cta{display:grid;grid-template-columns:1fr 1fr;min-height:345px;margin:clamp(3rem,6vw,6rem) 0 0;background:#b32028;color:#fff}
 .about-cta__content{padding:clamp(2rem,5vw,5rem) max(1.5rem,calc((100vw - 1200px)/2));padding-right:clamp(2rem,4vw,5rem);display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
