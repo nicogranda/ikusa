@@ -42,7 +42,12 @@ SET
 WHERE c.name = 'about-places' AND c.type = 'heading' AND t.language IN ('es','en');
 
 UPDATE components
-SET image = 'img/about/places-reference.png'
+SET image = CASE sort_order
+    WHEN 1 THEN 'img/about/atlanta.jpg'
+    WHEN 2 THEN 'img/about/donostia.jpg'
+    WHEN 3 THEN 'img/about/puerto-ordaz.jpg'
+    ELSE image
+END
 WHERE name = 'about-places' AND type = 'card';
 
 UPDATE component_translations AS t
