@@ -3,7 +3,7 @@ $cta = $cards[0] ?? null;
 if ($cta):
     $src = $imageUrl($cta['image'] ?? '');
     $lang = $language === 'en' ? 'en' : 'es';
-    $contactUrl = function_exists('route_url') ? route_url($lang === 'es' ? 'es/contacto' : 'en/contact') : '/' . $lang . '/contacto';
+    $contactUrl = function_exists('route_url') ? route_url($lang === 'es' ? 'es/contacto' : 'en/contact-us') : '/' . $lang . '/' . ($lang === 'es' ? 'contacto' : 'contact-us');
 ?>
 <section class="about-block about-cta" aria-labelledby="about-cta-title">
     <div class="about-cta__content">
