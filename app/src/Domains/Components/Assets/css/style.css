@@ -33,3 +33,6 @@
 .ik-components__team-role::after{content:"";display:block;width:28px;height:3px;background:var(--color-primary,#d72e37);margin:.65rem 0}
 .ik-components__team-description{font-size:.95rem;line-height:1.5;color:#555;max-width:32ch;margin:0}
 @media(max-width:700px){.ik-components__team-heading{grid-template-columns:1fr;gap:1rem}.ik-components__team-grid{grid-template-columns:1fr;gap:2rem}.ik-components__team-photo{height:360px}.ik-components__team-description{max-width:none}}
+
+/* Nicolás se encuadra de medio cuerpo; los otros retratos conservan su silueta. */
+.ik-components__team-card:last-child .ik-components__team-photo img{object-fit:cover;object-position:center top}
