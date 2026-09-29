@@ -1,0 +1,38 @@
+.ik-components{width:min(1200px,calc(100% - 2rem));margin:clamp(3rem,7vw,7rem) auto;color:var(--color-font,#222);font-family:var(--font-text,inherit)}
+.ik-components__heading{max-width:800px;margin:0 auto clamp(2rem,5vw,5rem);text-align:center}
+.ik-components__heading h2{font-family:var(--font-brand,inherit);font-size:clamp(2rem,5vw,4.5rem);line-height:1.1;margin:.5rem 0 1rem}
+.ik-components__heading p:last-child{line-height:1.7}
+.ik-components__eyebrow{font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-primary,var(--color-brand,#7b4bca))}
+.ik-components__item{overflow:hidden;margin:0 0 2rem;border-radius:1.5rem;background:var(--color-light,#f7f5f2)}
+.ik-components__item--split{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.ik-components__item--split:nth-of-type(even) .ik-components__media{order:2}
+.ik-components__media{height:100%;min-height:320px}
+.ik-components__media img{display:block;width:100%;height:100%;object-fit:cover}
+.ik-components__body{padding:clamp(1.5rem,5vw,5rem)}
+.ik-components__body h3{font-family:var(--font-brand,inherit);font-size:clamp(1.6rem,3vw,3rem);line-height:1.15;margin:.5rem 0 1rem}
+.ik-components__body>p:last-child{line-height:1.7}
+.ik-components__item--card{display:inline-flex;vertical-align:top;flex-direction:column;width:min(100%,360px);margin-right:1rem}
+.ik-components__item--card .ik-components__media{height:270px;min-height:0}
+.ik-components__item--card .ik-components__body{padding:1.5rem}
+@media(max-width:700px){.ik-components__item--split{grid-template-columns:1fr}.ik-components__item--split:nth-of-type(even) .ik-components__media{order:0}.ik-components__media{min-height:260px;height:300px}.ik-components__item--card{display:flex;width:100%}}
+
+/* Team: three portraits and text cards as in the About mockup. */
+.ik-components--team{width:100%;max-width:none;margin:0;padding:clamp(3rem,6vw,6rem) max(1.25rem,calc((100vw - 1200px)/2));background:#f7f7f7;box-sizing:border-box}
+.ik-components__team-heading{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(220px,.65fr);gap:2rem;align-items:end;margin-bottom:2.5rem}
+.ik-components__team-heading .ik-components__eyebrow{color:var(--color-primary,#d72e37);font-size:.8rem;letter-spacing:.02em;margin:0 0 .6rem}
+.ik-components__team-heading h2{font-family:var(--font-brand,inherit);font-size:clamp(2rem,3.4vw,3.5rem);line-height:1.12;letter-spacing:-.035em;margin:0;color:#161616}
+.ik-components__team-heading h2 span{color:var(--color-primary,#d72e37)}
+.ik-components__team-heading>p{font-size:1rem;line-height:1.6;color:#555;margin:0 0 .2rem}
+.ik-components__team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,2.5vw,2.5rem)}
+.ik-components__team-card{min-width:0;background:transparent}
+.ik-components__team-photo{height:clamp(240px,30vw,390px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:#ededed}
+.ik-components__team-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}
+.ik-components__team-body{padding:1.15rem 0 0}
+.ik-components__team-body h3{font-family:var(--font-brand,inherit);font-size:1.25rem;line-height:1.2;margin:0 0 .2rem;color:#161616}
+.ik-components__team-role{font-size:.75rem;text-transform:uppercase;letter-spacing:.025em;margin:0;color:#555}
+.ik-components__team-role::after{content:"";display:block;width:28px;height:3px;background:var(--color-primary,#d72e37);margin:.65rem 0}
+.ik-components__team-description{font-size:.95rem;line-height:1.5;color:#555;max-width:32ch;margin:0}
+@media(max-width:700px){.ik-components__team-heading{grid-template-columns:1fr;gap:1rem}.ik-components__team-grid{grid-template-columns:1fr;gap:2rem}.ik-components__team-photo{height:360px}.ik-components__team-description{max-width:none}}
+
+/* Nicolás se encuadra de medio cuerpo; los otros retratos conservan su silueta. */
+.ik-components__team-card:last-child .ik-components__team-photo img{object-fit:cover;object-position:center top}

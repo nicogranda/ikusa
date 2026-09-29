@@ -12,7 +12,7 @@ RewriteRule ^es/(desarrollo-web|diseno-grafico|marketing-digital)/?$ public_html
 RewriteRule ^admin/?$ public_html/index.php?lang=es&page=admin&action=auth [L,QSA]
 RewriteRule ^es/admin/?$ public_html/index.php?lang=es&page=admin&action=auth [L,QSA]
 RewriteRule ^es/contacto/?$ public_html/index.php?lang=es&page=contact&action=create [L,QSA]
-RewriteRule ^es/nosotros/?$ public_html/index.php?lang=es&page=about [L,QSA]
+RewriteRule ^es/nosotros/?$ public_html/index.php?lang=es&page=nosotros [L,QSA]
 RewriteRule ^es/tarjetas-de-visitas/?$ public_html/index.php?lang=es&page=cards [L,QSA]
 RewriteRule ^es/gracias/?$ public_html/index.php?lang=es&page=contact&action=success [L,QSA]
 RewriteRule ^es/legal/(aviso-legal|politica-de-cookies|politica-de-proteccion-de-datos|terminos-y-condiciones)/?$ public_html/index.php?lang=es&page=legal/$1 [L,QSA]
