@@ -84,17 +84,9 @@ $headerClass = in_array($page, $darkHeaderPages)
         
         <a href="<?= htmlspecialchars(route_url('es/proyectos'), ENT_QUOTES, 'UTF-8') ?>">Proyectos</a>
         
-        <a href="<?= htmlspecialchars(route_url(($lang ?? 'es') === 'en' ? 'en/about-us' : 'es/nosotros'), ENT_QUOTES, 'UTF-8') ?>"><?= ($lang ?? 'es') === 'en' ? 'About us' : 'Quiénes somos?' ?></a>
+        <a href="<?= htmlspecialchars(route_url('es/nosotros'), ENT_QUOTES, 'UTF-8') ?>">Quiénes somos?</a>
 
     </div>
-
-    <?php if (in_array($page, ['nosotros', 'about-us'], true)): ?>
-    <nav class="about-language-switch" aria-label="<?= ($lang ?? 'es') === 'en' ? 'Language' : 'Idioma' ?>">
-        <a href="<?= htmlspecialchars(route_url('es/nosotros'), ENT_QUOTES, 'UTF-8') ?>" lang="es" <?= ($lang ?? 'es') === 'es' ? 'aria-current="page"' : '' ?>>ES</a>
-        <span aria-hidden="true">/</span>
-        <a href="<?= htmlspecialchars(route_url('en/about-us'), ENT_QUOTES, 'UTF-8') ?>" lang="en" <?= ($lang ?? 'es') === 'en' ? 'aria-current="page"' : '' ?>>EN</a>
-    </nav>
-    <?php endif; ?>
 
     <!--<div class="contact-us">-->
     <!--    <a href="<?= htmlspecialchars(route_url('es/contacto'), ENT_QUOTES, 'UTF-8') ?>">Contáctanos</a>-->
@@ -117,12 +109,6 @@ $headerClass = in_array($page, $darkHeaderPages)
 </div>
 
 <style>
-/* Selector de idioma de la página About. */
-.about-language-switch{display:flex;align-items:center;gap:.45rem;margin-left:auto;font-weight:700;font-size:.82rem;letter-spacing:.04em}
-.about-language-switch a,.about-language-switch a:visited{color:#fff;text-decoration:none;opacity:.7}
-.about-language-switch a[aria-current="page"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
-header.scrolled .about-language-switch a,header.scrolled .about-language-switch a:visited{color:#171717}
-
 header {
     position: fixed;
     top: 0;
