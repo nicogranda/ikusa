@@ -20,3 +20,7 @@ Esto reemplaza la lista anterior solo para About en español e inglés; guardar 
 5. Comprobar `/es/nosotros` y `/en/about-us`, también en móvil.
 
 El CSS está en `app/src/Domains/About/Assets/css/style.css` y lo carga el componente; no se requiere acceso HTTP directo a esa carpeta.
+
+## Hero de About e Isis
+
+Copiar `app/views/components/About/Hero.php` y `public_html/assets/img/about/hero-cafe.png`, y ejecutar `database/migrations/about-hero-isis.sql` una vez en localhost. La migración asigna `hero_type=component`, `hero_path=About/Hero.php`, elimina el antiguo `hero.php` de la lista de componentes y pone el cargo de Isis en Publicidad y Marketing. La imagen de la taza es un PNG transparente optimizado; el hero rojo se renderiza antes del `<main>` mediante `Pages/Views/Show.php`.
