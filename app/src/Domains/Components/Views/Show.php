@@ -13,7 +13,7 @@ $asset = static function ($path): string {
 };
 $isTeam = $name === 'team';
 ?>
-<section class="ik-components<?= $isTeam ? ' ik-components--team' : '' ?>" aria-label="<?= $escape($name) ?>">
+<section <?= $isTeam ? 'id="team"' : '' ?> class="ik-components<?= $isTeam ? ' ik-components--team' : '' ?>" aria-label="<?= $escape($name) ?>">
 <?php if ($isTeam): ?>
     <?php foreach ($items as $item): ?>
         <?php if ($item['type'] !== 'heading') continue; ?>
