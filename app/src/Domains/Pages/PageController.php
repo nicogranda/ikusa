@@ -31,6 +31,13 @@ class PageController
             $slug
         );
 
+        if ($this->resolvedTranslation && $language === 'es' && $slug === 'agencia-marketing-industrial') {
+            $this->resolvedTranslation = array_replace(
+                $this->resolvedTranslation,
+                require __DIR__ . '/IndustrialMarketing.php'
+            );
+        }
+
         return $this->resolvedTranslation;
     }
 
@@ -44,7 +51,7 @@ class PageController
     public function render(string $language, string $slug): bool
     {
         $content = $this->resolvedTranslation
-            ?? $this->translationModel->findBySlug($language, $slug);
+            ?? $this->resolve($language, $slug);
 
         if (!$content) {
             return false;
@@ -119,6 +126,11 @@ class PageController
         $allTranslations = $this->translationModel->findByPageId(
             (int) $content['page_id']
         );
+
+        if ($language === 'es' && $slug === 'agencia-marketing-industrial') {
+            include __DIR__ . '/Views/IndustrialMarketing.php';
+            return true;
+        }
 
         /*
         |--------------------------------------------------------------------------
