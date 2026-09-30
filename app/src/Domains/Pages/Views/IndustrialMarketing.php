@@ -21,6 +21,7 @@ $steps = [
 ?>
 <link rel="stylesheet" href="<?= $h($css) ?>">
 <main class="industrial-page">
+    <div class="im-first-screen">
     <section class="im-hero" aria-labelledby="im-title">
         <div class="im-container im-hero-grid">
             <div>
@@ -46,6 +47,7 @@ $steps = [
         </div>
     </section>
     <div class="im-strip"><div class="im-container"><span>Fabricantes</span><span>Ingenierías</span><span>Proveedores industriales</span><span>Empresas de manufactura</span></div></div>
+    </div>
     <section class="im-section im-container im-intro" aria-labelledby="im-challenge">
         <div><p class="im-eyebrow">El reto industrial</p><h2 id="im-challenge">Una buena solución necesita una buena forma de llegar al mercado.</h2></div>
         <div><p>El marketing industrial conecta empresas que ofrecen soluciones técnicas con empresas que las necesitan. La compra suele requerir comparaciones, documentación y la aprobación de varios responsables.</p><p>Por eso tu presencia digital debe responder a las preguntas de ingeniería, compras y dirección: qué haces, para qué aplicaciones, con qué capacidades y cómo empezar a trabajar contigo.</p><p class="im-callout">Convertimos esa información en una experiencia clara, desde la primera búsqueda hasta la solicitud de presupuesto.</p></div>
