@@ -3,6 +3,7 @@
 $h = static fn ($value): string => htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $url = static fn (string $path): string => function_exists('route_url') ? route_url($path) : '/' . $path;
 $css = function_exists('asset_url') ? asset_url('css/industrial-marketing.css') : '/assets/css/industrial-marketing.css';
+$gears = function_exists('asset_url') ? asset_url('img/services/industrial-marketing/industrial-gears.svg') : '/assets/img/services/industrial-marketing/industrial-gears.svg';
 $services = [
     ['01', 'Estrategia de marketing B2B', 'Definimos a qué empresas dirigirte, qué problemas resuelves y qué argumentos necesita cada decisor. Priorizamos mercados, productos y canales.', 'Cliente ideal · Propuesta de valor · Plan de acción'],
     ['02', 'SEO industrial', 'Organizamos tu presencia en Google alrededor de productos, procesos y aplicaciones. Trabajamos búsquedas técnicas con intención de encontrar un proveedor.', 'Arquitectura web · SEO técnico · Contenido especializado'],
@@ -33,7 +34,7 @@ $steps = [
                 <p class="im-hero-note">Desde Gipuzkoa, para empresas industriales de toda España.</p>
             </div>
             <aside class="im-blueprint" aria-label="Del conocimiento técnico a la oportunidad comercial">
-                <div class="im-blueprint-top"><span>CAPACIDAD → OPORTUNIDAD</span><span aria-hidden="true">↗</span></div>
+                <div class="im-blueprint-top"><span>CAPACIDAD → OPORTUNIDAD</span><img class="im-gears" src="<?= $h($gears) ?>" alt="" width="72" height="60" aria-hidden="true"></div>
                 <p class="im-blueprint-title">Tu conocimiento.<br>Su próxima solución.</p>
                 <ol class="im-flow">
                     <li><span>01 / VISIBILIDAD</span><strong>Te encuentran</strong><p>Por el producto o proceso que necesitan.</p></li>

@@ -6,6 +6,8 @@ return [
     'keywords' => 'agencia de marketing industrial, marketing industrial B2B, SEO industrial, diseño web industrial',
     'h1' => 'Agencia de marketing industrial para conectar con tu próximo cliente B2B',
     'excerpt' => 'Tu empresa sabe fabricar, resolver y mejorar procesos. Hacemos que ese valor se entienda, se encuentre y se convierta en conversaciones comerciales con las empresas que lo necesitan.',
+    'og_image' => 'assets/img/services/industrial-marketing/industrial-marketing-social.png',
+    'twitter_image' => 'assets/img/services/industrial-marketing/industrial-marketing-social.png',
     'og_title' => 'Marketing industrial B2B | Ikusa',
     'og_description' => 'Estrategia, diseño web y SEO para convertir tu capacidad industrial en oportunidades comerciales.',
     'twitter_title' => 'Marketing industrial B2B | Ikusa',
