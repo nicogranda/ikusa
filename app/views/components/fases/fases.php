@@ -79,7 +79,7 @@ $fases = [
 
         .fase-row {
             display: grid;
-            grid-template-columns: 48px 1fr;
+            grid-template-columns: 56px 1fr;
             gap: 0 20px;
         }
 
@@ -90,17 +90,17 @@ $fases = [
         }
 
         .fase-num {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            background: rgba(255, 94, 31, 0.12);
-            border: 0.5px solid rgba(255, 94, 31, 0.4);
+            background: orangered;
+            border: 0.5px solid orangered;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
-            font-weight: 500;
-            color: #FF5E1F;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
             flex-shrink: 0;
         }
 

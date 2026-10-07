@@ -106,6 +106,9 @@ $config['contact']['state'] = env('APP_STATE');
 $config['contact']['zip'] = env('APP_ZIP');
 
 $config['contact']['country'] = env('APP_COUNTRY');
+if ($config['contact']['country'] === 'Espa単a') {
+    $config['contact']['country'] = 'España';
+}
 
 $config['contact']['phone'] = env('APP_PHONE');
 

@@ -196,10 +196,10 @@
                 SEO LOCAL · GIPUZKOA
             </p>
 
-            <h3
+            <p
                 class="geo-modal__title"
                 id="geo-modal-title"
-            ></h3>
+            ></p>
 
             <p class="geo-modal__intro">
                 Algunos de los sectores con mayor actividad

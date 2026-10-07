@@ -43,7 +43,49 @@ $stepsGrid = [
     ]
 ];
 
-//include __DIR__ . '/StepsGrid.php';
+$projectScopes = [
+    'petit-cafe' => [
+        'id' => 'petit-cafe-trabajo',
+        'title' => 'Identidad gráfica, web y SEO',
+        'excerpt' => 'Desarrollamos el concepto gráfico de Petit Café y su presencia digital.',
+        'steps' => [
+            ['title' => 'Concepto e identidad gráfica', 'text' => 'Diseñamos el concepto gráfico y la identidad visual de Petit Café.'],
+            ['title' => 'Diseño y desarrollo web', 'text' => 'Creamos la página web trasladando la identidad gráfica de la marca al entorno digital.'],
+            ['title' => 'Posicionamiento SEO', 'text' => 'Trabajamos el posicionamiento SEO de la web para mejorar su visibilidad en buscadores.'],
+        ],
+    ],
+    'borjas-design' => [
+        'id' => 'borjas-design-trabajo',
+        'title' => 'Una tienda online conectada con la marca',
+        'excerpt' => 'Desarrollamos el ecommerce de Borjas Design con imágenes optimizadas, vinculación con Instagram y una pasarela de pago.',
+        'steps' => [
+            ['title' => 'Diseño web y tienda online', 'text' => 'Diseñamos y desarrollamos la página web y la tienda online de Borjas Design.'],
+            ['title' => 'Optimización de imágenes', 'text' => 'Optimizamos las imágenes de la tienda para su uso en la web.'],
+            ['title' => 'Vinculación con Instagram', 'text' => 'Vinculamos la tienda online con la presencia de la marca en Instagram.'],
+            ['title' => 'Pasarela de pago', 'text' => 'Configuramos una pasarela de pago para que los clientes pudieran completar sus compras online.'],
+        ],
+    ],
+    'la-ex-cocteleria' => [
+        'id' => 'la-ex-cocteleria-trabajo',
+        'title' => 'Una nueva web preparada para crecer',
+        'excerpt' => 'Migramos el proyecto desde otro dominio y creamos una landing page multilingüe, con un nuevo hosting y una estructura ampliable.',
+        'steps' => [
+            ['title' => 'Migración de dominio y hosting', 'text' => 'Migramos el proyecto desde otro dominio y configuramos el hosting desde cero.'],
+            ['title' => 'Diseño de la landing page', 'text' => 'Diseñamos y desarrollamos una landing page para presentar los servicios de La Ex Coctelería.'],
+            ['title' => 'Enfoque multilingüe', 'text' => 'Creamos una web con enfoque multilingüe para presentar el proyecto en distintos idiomas.'],
+            ['title' => 'Estructura ampliable para SEO', 'text' => 'Preparamos la web para incorporar nuevas páginas y contenidos con los que trabajar progresivamente el posicionamiento SEO.'],
+        ],
+    ],
+];
+
+$projectSlug = $content['slug'] ?? $translation['slug'] ?? '';
+if ($projectSlug === 'laex-cocteleria') {
+    $projectSlug = 'la-ex-cocteleria';
+}
+if (isset($projectScopes[$projectSlug])) {
+    $stepsGrid = $projectScopes[$projectSlug];
+}
+
 ?>
 <?php
 /**

@@ -86,7 +86,7 @@ $fase_info  = $FASES_DATA[$fase_tipo][$fase_lang] ?? null;
     }
     .fase-row {
         display: grid;
-        grid-template-columns: 48px 1fr;
+        grid-template-columns: 56px 1fr;
         gap: 0 20px;
     }
     .fase-left {
@@ -95,17 +95,17 @@ $fase_info  = $FASES_DATA[$fase_tipo][$fase_lang] ?? null;
         align-items: center;
     }
     .fase-num {
-        width: 44px;
-        height: 44px;
+        width: 52px;
+        height: 52px;
         border-radius: 50%;
-        background: rgba(241, 90, 36, 0.12);
-        border: 0.5px solid rgba(241, 90, 36, 0.4);
+        background: orangered;
+        border: 0.5px solid orangered;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-brand, #F15A24);
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
         flex-shrink: 0;
     }
     .fase-line {
