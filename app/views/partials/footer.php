@@ -94,6 +94,7 @@ function formatPhoneDisplay($phone) {
                 <br>
                 <li><a href='/es/legal/propuesta-de-branding'>Propuesta de Branding</a></li>
                 <li><a href='/es/legal/condiciones-para-sitio-web'>Desarrollo de Sitio Web</a></li>
+                <li><a href='/es/legal/condiciones-marketing-digital'>Marketing Digital</a></li>
               
                 
                 

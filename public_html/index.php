@@ -193,9 +193,9 @@ switch ($page) {
         include '../app/views/services/seo-company.php';
         break; 
 
-    case 'about':
-        include '../app/views/about.php';
-        break;
+    // case 'about':
+    //     include '../app/views/about.php';
+    //     break;
         
     case 'contact':
         require_once '../app/controllers/RFQ/RFQsController.php';
@@ -265,6 +265,10 @@ switch ($page) {
         include '../app/views/portfolio/development.php';
         break;      
         
+
+    case 'marketing-terms':
+        include '../app/views/legals/marketing-terms.php';
+        break;
 
     case 'website-terms':
         include '../app/views/legals/website-terms.php';

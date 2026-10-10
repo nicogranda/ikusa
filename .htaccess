@@ -1,6 +1,11 @@
 AddDefaultCharset UTF-8
 RewriteEngine On
 
+# Backend y secretos no son recursos públicos.
+RewriteRule ^(?:app|storage|vendor)(?:/|$) - [F,L,NC]
+RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+
+
 # Rutas locales relativas a la carpeta del proyecto. No dependen de /ikusa.
 RewriteRule ^$ public_html/index.php?lang=es&page=home [L,QSA]
 
@@ -18,5 +23,6 @@ RewriteRule ^es/gracias/?$ public_html/index.php?lang=es&page=contact&action=suc
 RewriteRule ^es/legal/(aviso-legal|politica-de-cookies|politica-de-proteccion-de-datos|terminos-y-condiciones)/?$ public_html/index.php?lang=es&page=legal/$1 [L,QSA]
 RewriteRule ^es/legal/propuesta-de-branding/?$ public_html/index.php?lang=es&page=branding-proposal [L,QSA]
 RewriteRule ^es/legal/condiciones-para-sitio-web/?$ public_html/index.php?lang=es&page=website-terms [L,QSA]
+RewriteRule ^es/legal/condiciones-marketing-digital/?$ public_html/index.php?lang=es&page=marketing-terms [L,QSA]
 RewriteRule ^(es|en|eu)/proyectos/([a-z0-9-]+)/?$ public_html/index.php?lang=$1&page=$2 [L,QSA]
 RewriteRule ^(es|en|eu)/([a-z0-9-]+)/?$ public_html/index.php?lang=$1&page=$2 [L,QSA]

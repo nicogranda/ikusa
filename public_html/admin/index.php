@@ -13,6 +13,13 @@ require dirname(__DIR__, 2) . '/app/config/env.php';
 
 $baseUrl = $_ENV['APP_URL'] ?? '';
 
+if (in_array(($_GET['page'] ?? ''), ['appointments', 'calendar'], true)) {
+    require_once dirname(__DIR__, 2) . '/app/src/Domains/Appointments/Calendar/bootstrap.php';
+    (new \App\Domains\Appointments\Calendar\CalendarController())->handle();
+    exit;
+}
+
+
 include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Shared/views/partials/head.php';
 // require __DIR__ . '/../../app/config/assets.php';
 require dirname(__DIR__, 2) . '/app/config/connection.php';
@@ -28,7 +35,7 @@ include dirname(__DIR__, 2) . '/app/src/Domains/Admin/Shared/views/partials/nav.
 switch ($route) {
     
     case 'home':
-        echo '<main class="container py-4"><h1>Panel de administración</h1></main>';
+        echo '<main class="container py-4"><h1>Panel de administración</h1><p><a href="?page=appointments">Google Calendar</a></p></main>';
         break;
         
     case 'users':

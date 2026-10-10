@@ -10,3 +10,7 @@ __MACOSX/
 /public_html/admin/E-mail/uploads/
 /database/ikusa.sql
 /public_html/admin/config/connection.php
+/app/src/Domains/Appointments/Config/calendar.local.php
+/app/src/Domains/Appointments/Config/*.json
+
+/storage/

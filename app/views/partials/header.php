@@ -21,6 +21,8 @@ $darkHeaderPages = [
     'legal/politica-de-proteccion-de-datos',
     'legal/terminos-y-condiciones',
     'legal/condiciones-para-sitio-web',
+    'legal/condiciones-marketing-digital',
+    'marketing-terms',
     'legal/posicionamiento-seo',
     'legal/propuesta-de-branding',
 
@@ -65,6 +67,8 @@ $headerClass = in_array($page, $darkHeaderPages)
     </div>
     </div>
 
+    <button type="button" class="header-talk" id="header-talk" aria-haspopup="dialog" aria-controls="appointment-dialog">Hablemos</button>
+
     <div class="menu" id="menu">
         <a href="<?= htmlspecialchars(route_url($lang ?? 'es'), ENT_QUOTES, 'UTF-8') ?>">Home</a>
 
@@ -93,6 +97,11 @@ $headerClass = in_array($page, $darkHeaderPages)
     <!--</div>-->
 </header>
 
+<dialog id="appointment-dialog" aria-label="Solicitar una reunión con Ikusa">
+    <button type="button" class="appointment-dialog-close" aria-label="Cerrar formulario">&times;</button>
+    <iframe title="Formulario de cita" data-src="<?= htmlspecialchars($assetPrefix . '/appointment.php?v=' . max(filemtime(dirname(__DIR__, 2) . '/src/Domains/Appointments/Views/Show.php'), filemtime(dirname(__DIR__, 2) . '/src/Domains/Appointments/LeadAppointmentController.php')), ENT_QUOTES, 'UTF-8') ?>"></iframe>
+</dialog>
+
 <!-- CHATBOT -->
 <div id="chatbot-widget">
     <div id="chatbot-toggle">
@@ -109,6 +118,14 @@ $headerClass = in_array($page, $darkHeaderPages)
 </div>
 
 <style>
+.header-talk { padding: 11px 22px; border: 1px solid var(--brand-color, #e74722); border-radius: 0; background: var(--brand-color, #e74722); color: #fff; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
+.header-talk:hover { filter: brightness(.9); }
+#appointment-dialog { position: fixed; inset: 0; margin: auto; box-sizing: border-box; width: min(560px, calc(100vw - 32px)); height: fit-content; max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); padding: 40px 0 0; border: 0; border-radius: 10px; background: #fff; overflow: hidden; box-shadow: 0 20px 70px rgba(0,0,0,.25); }
+#appointment-dialog::backdrop { background: rgba(0,0,0,.65); }
+#appointment-dialog iframe { display: block; width: 100%; height: min(690px, calc(100dvh - 72px)); border: 0; }
+.appointment-dialog-close { position: absolute; right: 12px; top: 6px; border: 0; background: transparent; color: #222; font-size: 30px; cursor: pointer; }
+body:has(#appointment-dialog[open]) { overflow: hidden; }
+@media (max-width: 480px) { .header-talk { padding: 10px 14px; } }
 header {
     position: fixed;
     top: 0;
@@ -373,6 +390,22 @@ header.scrolled .logo svg{
 </style>
 
 <script>
+(() => {
+    const dialog = document.getElementById('appointment-dialog');
+    document.getElementById('header-talk').addEventListener('click', () => {
+        const frame = dialog.querySelector('iframe');
+        const formUrl = new URL(frame.dataset.src, window.location.href);
+        formUrl.searchParams.set('opened', Date.now().toString());
+        frame.src = formUrl.href;
+        dialog.showModal();
+    });
+    dialog.querySelector('.appointment-dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => {
+        if (event.target !== dialog) return;
+        const rect = dialog.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    });
+})();
 /* ── SCROLL: cambio de color header + logo ── */
 window.addEventListener('scroll', function() {
     var header = document.getElementById('main-header');

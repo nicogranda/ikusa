@@ -17,7 +17,8 @@ class AuthsController
             if (!empty($_ENV['GOOGLE_CLIENT_SECRET'])
                 && !empty($_ENV['GOOGLE_REDIRECT_URI'])) {
                 $this->googleClient->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-                $this->googleClient->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+                require_once dirname(__DIR__, 2) . '/Appointments/Calendar/bootstrap.php';
+                $this->googleClient->setRedirectUri(\App\Domains\Appointments\Calendar\Infrastructure\GoogleConnection::redirectUri());
                 $this->googleClient->addScope('email');
                 $this->googleClient->addScope('profile');
             }
@@ -42,19 +43,21 @@ class AuthsController
             return;
         }
 
+        if (isset($_GET['state']) || isset($_GET['code']) || isset($_GET['error'])) {
+            if (isset($_SESSION['calendar_oauth'])) {
+                require_once dirname(__DIR__, 2) . '/Appointments/Calendar/bootstrap.php';
+                \App\Domains\Appointments\Calendar\CalendarController::callback();
+                return;
+            }
+            // El login actual usa Google Identity Services. No acepta códigos OAuth sin state.
+            http_response_code(400);
+            echo 'Retorno OAuth no válido. Inicia la conexión desde el panel.';
+            return;
+        }
+
         if (!empty($_SESSION['user_id'])) {
             header('Location: ' . $this->panelUrl());
             exit;
-        }
-
-        if (isset($_GET['code'])) {
-            if ($this->googleClient === null) {
-                $_SESSION['error'] = 'El acceso con Google no está configurado aquí.';
-                header('Location: ' . route_url('admin'));
-                exit;
-            }
-            $this->handleGoogleCallback((string) $_GET['code']);
-            return;
         }
 
         $googleLoginEnabled = $this->googleClient !== null;
@@ -151,42 +154,6 @@ class AuthsController
         $_SESSION['error'] = 'Usuario o contraseña incorrectos.';
         header('Location: ' . route_url('admin'));
         exit;
-    }
-
-    private function handleGoogleCallback(string $code): void
-    {
-        try {
-            $token = $this->googleClient->fetchAccessTokenWithAuthCode($code);
-            if (isset($token['error'])) {
-                throw new \RuntimeException('No se pudo validar el acceso con Google.');
-            }
-
-            $this->googleClient->setAccessToken($token);
-            $oauth2 = new \Google\Service\Oauth2($this->googleClient);
-            $email = (string) $oauth2->userinfo->get()->email;
-
-            $stmt = $this->mysqli->prepare(
-                'SELECT id, username, name, lastname, email, role
-                 FROM users WHERE email = ? LIMIT 1'
-            );
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $user = $stmt->get_result()->fetch_assoc();
-            $stmt->close();
-
-            if (!$user || $user['role'] !== 'admin') {
-                throw new \RuntimeException('Esta cuenta no tiene acceso al panel.');
-            }
-
-            $this->startSession($user);
-            header('Location: ' . $this->panelUrl());
-            exit;
-        } catch (\Throwable $exception) {
-            error_log('Admin Google login failed: ' . $exception->getMessage());
-            $_SESSION['error'] = 'No se pudo iniciar sesión con Google.';
-            header('Location: ' . route_url('admin'));
-            exit;
-        }
     }
 
     private function startSession(array $user): void
