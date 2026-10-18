@@ -13,7 +13,7 @@ $heroData = [
     'title' => 'Posicionamiento Web y SEO en',
     'highlight' => 'Irún',
     'description' => 'Cuando alguien en Irún busca en Google el servicio que tú ofreces, ¿aparece tu negocio? Si la respuesta es no, o si apareces en la página 3 o después, estás perdiendo clientes cada día frente a la competencia. En Ikusa somos agencia y consultor SEO con sede en Irún, Gipuzkoa, y llevamos más de 25 años trabajando para que las marcas de nuestros clientes sean visibles donde importa.',
-    'image' => '/assets/img/heros/seo-irun.jpeg',
+    'image' => '/assets/img/heros/ikusa-digital-workspace.webp',
 
 
     'buttons' => [

@@ -1,5 +1,5 @@
 <section class="hero">
-  <img src="/assets/img/isis_marcial.png" alt="Agencia de Marketing" title="Agencia de Marketing" class="hero-img">
+  <img src="/assets/img/isis_marcial.jpg" alt="Agencia de Marketing" title="Agencia de Marketing" class="hero-img">
 </section>
 <h1 class="principal">Propuesta de Branding</h1>
  
