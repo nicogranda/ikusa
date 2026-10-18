@@ -101,7 +101,7 @@ $evidenceDate = static function (string $value) use ($evidenceEscape): string {
 .evidence-gallery .evidence-gallery__label { margin:0 0 14px; color:var(--color-primary,#F15A24); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 .evidence-gallery h2 { margin:0 0 18px; max-width:850px; font-family:inherit; font-size:clamp(26px,2.8vw,34px); line-height:1.3; font-weight:600; letter-spacing:-.025em; }
 .evidence-gallery .evidence-gallery__intro { max-width:880px; margin:0; color:#555; font-size:14px; line-height:1.8; }
-.evidence-gallery__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:24px; margin-top:28px; }
+.evidence-gallery__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:28px; }
 .evidence-gallery__card { margin:0; min-width:0; border:1px solid #e9e5e2; border-radius:6px; overflow:hidden; background:#fff; }
 .evidence-gallery__image { display:block; position:relative; background:#f6f6f6; }
 .evidence-gallery img { display:block; width:100%; height:auto; }
