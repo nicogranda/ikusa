@@ -49,7 +49,7 @@ $evidenceDate = static function (string $value) use ($evidenceEscape): string {
                     </div>
                     <?php endif; ?>
                     <figcaption>
-                        <h3><?= $evidenceEscape($evidenceItem['title']) ?></h3>
+                        <h3><img class="evidence-gallery__isotype" src="<?= $evidenceEscape(function_exists('asset_url') ? asset_url('img/favicon.png') : '/assets/img/favicon.png') ?>" width="20" height="20" alt="" aria-hidden="true"> <span><?= $evidenceEscape($evidenceItem['title']) ?></span></h3>
                         <p><?= $evidenceEscape($evidenceItem['text']) ?></p>
                         <dl class="evidence-gallery__facts">
                             <?php if (!empty($evidenceItem['query'])): ?>
@@ -101,19 +101,20 @@ $evidenceDate = static function (string $value) use ($evidenceEscape): string {
 .evidence-gallery .evidence-gallery__label { margin:0 0 14px; color:var(--color-primary,#F15A24); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 .evidence-gallery h2 { margin:0 0 18px; max-width:850px; font-family:inherit; font-size:clamp(26px,2.8vw,34px); line-height:1.3; font-weight:600; letter-spacing:-.025em; }
 .evidence-gallery .evidence-gallery__intro { max-width:880px; margin:0; color:#555; font-size:14px; line-height:1.8; }
-.evidence-gallery__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-top:28px; }
+.evidence-gallery__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:24px; margin-top:28px; }
 .evidence-gallery__card { margin:0; min-width:0; border:1px solid #e9e5e2; border-radius:6px; overflow:hidden; background:#fff; }
 .evidence-gallery__image { display:block; position:relative; background:#f6f6f6; }
 .evidence-gallery img { display:block; width:100%; height:auto; }
 .evidence-gallery figcaption { padding:20px; }
-.evidence-gallery h3 { margin:0 0 10px; font-family:inherit; font-size:16px; font-weight:600; line-height:1.4; }
+.evidence-gallery .evidence-gallery__isotype { flex:0 0 20px; width:20px; height:20px; object-fit:contain; }
+.evidence-gallery h3 { display:flex; align-items:center; gap:8px; margin:0 0 10px; font-family:inherit; font-size:16px; font-weight:600; line-height:1.4; }
 .evidence-gallery figcaption p { margin:0; color:#555; font-size:13px; line-height:1.75; }
 .evidence-gallery__facts { margin:14px 0 0; font-size:12px; line-height:1.7; color:#555; overflow-wrap:anywhere; }
 .evidence-gallery__facts > div { margin-top:10px; }
 .evidence-gallery__facts dt { font-weight:600; }
 .evidence-gallery__facts dd { margin:0; }
 .evidence-gallery .evidence-gallery__note { margin:24px 0 0; color:#626262; font-size:12px; line-height:1.8; }
-@media(max-width:900px){.evidence-gallery__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media(max-width:900px){.evidence-gallery__grid{gap:20px}}
 @media(max-width:600px){.evidence-gallery__container{width:calc(100% - 40px)}.evidence-gallery__grid{grid-template-columns:1fr}}
 </style>
 <?php unset($evidenceGallery); ?>

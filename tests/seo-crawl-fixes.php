@@ -22,6 +22,8 @@ foreach (['porlamar', 'avalon-estetic', 'la-ex-cocteleria'] as $slug) {
     include __DIR__ . '/../app/views/components/EvidenceGallery.php';
     $html = ob_get_clean();
     foreach ($data['items'] as $item) {
+        verifyCrawl(!str_contains($item['title'], '«') && !str_contains($item['title'], '»'), 'Keyword con comillas');
+        verifyCrawl(str_contains($html, 'class="evidence-gallery__isotype"'), 'Falta isotipo');
         $file = __DIR__ . '/../public_html' . $data['image_base'] . $item['image'];
         verifyCrawl(filesize($file) < 100000, 'Captura demasiado pesada: ' . $file);
         verifyCrawl(getimagesize($file)[2] === IMAGETYPE_WEBP, 'WebP inválido');
