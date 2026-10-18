@@ -1,5 +1,7 @@
 <?php
 
+// Permite reutilizar la presentación con los datos de otro proceso.
+$stepsGridOverride = $stepsGrid ?? null;
 $stepsGrid = [
     'id' => 'proceso-rediseño-seo',
 
@@ -44,6 +46,19 @@ $stepsGrid = [
 ];
 
 $projectScopes = [
+    'marketing-digital-gipuzkoa' => [
+        'id' => 'proceso-marketing-digital',
+        'title' => 'Primero definimos. <span>Después construimos y mejoramos.</span>',
+        'excerpt' => 'Acordamos el objetivo, el estilo y cómo funciona tu negocio antes de desarrollar. Después medimos la respuesta del público y ajustamos.',
+        'steps' => [
+            ['title' => 'Estrategia y objetivos', 'text' => 'Definimos qué quieres conseguir, a quién te diriges y qué ofreces frente a tu competencia.'],
+            ['title' => 'Estilo visual acordado', 'text' => 'Acordamos la dirección visual con referencias, colores y tipografías antes de diseñar el conjunto.'],
+            ['title' => 'Cómo funciona tu negocio', 'text' => 'Ordenamos tus servicios y el recorrido del cliente: cómo consulta, solicita presupuesto, reserva o compra.'],
+            ['title' => 'Diseño y desarrollo', 'text' => 'Construimos la web y sus funcionalidades siguiendo el estilo y el recorrido acordados. Revisamos juntos antes de publicar.'],
+            ['title' => 'SEO y refuerzo de contenidos', 'text' => 'Trabajamos las búsquedas de tus clientes y reforzamos las páginas que necesitan más visibilidad.'],
+            ['title' => 'Medición y mejora continua', 'text' => 'Medimos visitas, consultas y ventas. La respuesta del público nos indica qué mantener, qué corregir y qué mejorar.'],
+        ],
+    ],
     'petit-cafe' => [
         'id' => 'petit-cafe-trabajo',
         'title' => 'Identidad gráfica, web y SEO',
@@ -71,7 +86,7 @@ $projectScopes = [
         'excerpt' => 'Migramos el proyecto desde otro dominio y creamos una landing page multilingüe, con un nuevo hosting y una estructura ampliable.',
         'steps' => [
             ['title' => 'Migración de dominio y hosting', 'text' => 'Migramos el proyecto desde otro dominio y configuramos el hosting desde cero.'],
-            ['title' => 'Diseño de la landing page', 'text' => 'Diseñamos y desarrollamos una landing page para presentar los servicios de La Ex Coctelería.'],
+            ['title' => 'Diseño de la landing page', 'text' => 'Diseñamos y desarrollamos una landing page para presentar los servicios de LAEX Coctelería.'],
             ['title' => 'Enfoque multilingüe', 'text' => 'Creamos una web con enfoque multilingüe para presentar el proyecto en distintos idiomas.'],
             ['title' => 'Estructura ampliable para SEO', 'text' => 'Preparamos la web para incorporar nuevas páginas y contenidos con los que trabajar progresivamente el posicionamiento SEO.'],
         ],
@@ -85,6 +100,10 @@ if ($projectSlug === 'laex-cocteleria') {
 if (isset($projectScopes[$projectSlug])) {
     $stepsGrid = $projectScopes[$projectSlug];
 }
+if (is_array($stepsGridOverride)) {
+    $stepsGrid = $stepsGridOverride;
+}
+unset($stepsGridOverride);
 
 ?>
 <?php
@@ -317,3 +336,5 @@ $id      = $stepsGrid['id'] ?? 'ikusa-steps';
     }
 }
 </style>
+
+<?php unset($stepsGrid); ?>
